@@ -1,0 +1,156 @@
+{
+  "name": "Casefile",
+  "tagline": "Agents that explain why a Solana token dumped, and show the receipts.",
+  "track": "The Agent That Can Explain Why",
+  "team": "Breeklayer",
+  "repo": "https://github.com/shrooms08/casefile",
+  "hosted_demo": "https://casefile-ruddy-two.vercel.app/",
+  "demo_video": "DEMO_VIDEO_URL",
+  "slides": "SLIDES_URL",
+  "demo_cases": [
+    {
+      "case_id": "m_bd95541d260d",
+      "symbol": "ヤギ",
+      "mint": "FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+      "rugcheck_rugged": false,
+      "casefile_verdict": "RUGGED",
+      "one_line": "Insiders control 85.52% of supply, price fell 97.72%, and only about $2.4k liquidity remains with a danger-level low-liquidity risk, indicating a completed rug.",
+      "duration_s": 380.3,
+      "agent_calls": 13,
+      "run_id": "d96d0118ff",
+      "replay_url": "https://casefile-ruddy-two.vercel.app/case/m_bd95541d260d"
+    },
+    {
+      "case_id": "m_0c961a12701d",
+      "symbol": "kimchisol",
+      "mint": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+      "rugcheck_rugged": false,
+      "casefile_verdict": "RUGGED",
+      "one_line": "Price fell 93.54% with only thousands in liquidity and a danger-level low-liquidity risk, indicating a completed rug.",
+      "duration_s": 321.2,
+      "agent_calls": 22,
+      "run_id": "7f8bc61d71",
+      "replay_url": "https://casefile-ruddy-two.vercel.app/case/m_0c961a12701d"
+    },
+    {
+      "case_id": "m_d54bf9a14eb4",
+      "symbol": "Bonk",
+      "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+      "rugcheck_rugged": false,
+      "casefile_verdict": "CAUTION",
+      "one_line": "Only weak signal: mutable metadata; ample liquidity, no top-10 insiders, no mint/freeze authority.",
+      "duration_s": 348.0,
+      "agent_calls": 10,
+      "run_id": "cca738afdd",
+      "replay_url": "https://casefile-ruddy-two.vercel.app/case/m_d54bf9a14eb4"
+    },
+    {
+      "case_id": "m_d2f031d73387",
+      "symbol": "$WIF",
+      "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+      "rugcheck_rugged": false,
+      "casefile_verdict": "CAUTION",
+      "one_line": "No strong rug signals remain; only weak ratio and modest sell-pressure signals are present.",
+      "duration_s": 319.8,
+      "agent_calls": 12,
+      "run_id": "6051a8fa6f",
+      "replay_url": "https://casefile-ruddy-two.vercel.app/case/m_d2f031d73387"
+    }
+  ],
+  "sponsor_tech": {
+    "zetaris": {
+      "role": "data layer: the only component that fetches and shapes RugCheck and DexScreener data",
+      "features": [
+        "Lightning REST tables created at runtime per token (DEXSCREENER_REST, RUGCHECK_REST)",
+        "SchemaStore views in container casefile (pairs, summary, holders, risks, insiders, markets, known_accounts, lockers)",
+        "Parquet evidence snapshots via RUN EXPORT TO STORAGE, registered as LIGHTNING FILESTORE tables in CASEFILE_SNAP",
+        "agents read only the snapshots, through query_case (SELECT-only, snapshot tables only, serialized)"
+      ],
+      "files": [
+        "casefile/zetaris.py",
+        "casefile/sources.py",
+        "casefile/snapshot.py",
+        "casefile/case_file.py",
+        "casefile/agents/tools.py",
+        "fixtures/SOURCES.md"
+      ]
+    },
+    "meterless_engines": [
+      "H-MEM"
+    ],
+    "meterless_engine_locations": [
+      "casefile/hmem/index.ts",
+      "casefile/hmem/casefile.ts",
+      "casefile/hmem/cli.ts",
+      "casefile/hmem/",
+      "casefile/memory.py",
+      "casefile/memory_summary.py",
+      "tests/test_hmem.py"
+    ],
+    "meterless_nightshift": {
+      "role": "primary AI provider (Meterless Power Prompt contract: Runtime 1.4, provider contract v4)",
+      "apps": {
+        "casefile-fast": "lane pinned to nvidia/nemotron-3.5-lightning-30b-a3b",
+        "casefile-deep": "lane pinned to nvidia/nemotron-3.5-super-vl-120b-a12b"
+      },
+      "transport": "OpenAI-compatible /v1/chat/completions, streamed (SSE) with meterless-trace: on",
+      "receipts": "every call saved to runs/<case_id>/<run_id>/receipts.jsonl; receipt id + routed model shown on every agent step in the UI",
+      "files": [
+        "casefile/llm.py",
+        "scripts/check_nightshift.py",
+        "fixtures/PERF.md"
+      ]
+    },
+    "nvidia_models": [
+      {
+        "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+        "name": "Nemotron 3.5 Lightning 30B A3B",
+        "used_for": [
+          "holders investigator",
+          "liquidity investigator",
+          "deployer investigator"
+        ]
+      },
+      {
+        "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+        "name": "Nemotron 3.5 Super VL 120B A12B",
+        "used_for": [
+          "planner",
+          "skeptic",
+          "verdict"
+        ]
+      }
+    ],
+    "details": "docs/SPONSOR_TECH.md"
+  },
+  "tests": {
+    "api_replay": {
+      "command": "uv run pytest tests -q",
+      "result": "21 passed, 1 skipped"
+    },
+    "ui_static": {
+      "command": "node scripts/ui_check.mjs",
+      "result": "UI CHECK PASSED (64 checks, 0 failures)"
+    },
+    "hmem_conformance": {
+      "command": "HMEM_IMPL=<repo>/casefile/hmem/index.ts npx --yes tsx conformance/runner.ts",
+      "result": "13/13 checks passed"
+    },
+    "hmem_live": {
+      "command": "CASEFILE_LIVE_TESTS=1 uv run pytest tests/test_hmem.py",
+      "result": "1 passed in 913.57s"
+    },
+    "details": "docs/TEST_RESULTS.md"
+  },
+  "pre_existing_components": [
+    "Zetaris platform (local Docker install) and zetaris-getting-started recipes and AGENTS.md rules (guidance; no code copied)",
+    "Meterless Nightshift app (Meterless Runtime 1.4)",
+    "Meterless Power Prompt (provider contract v4) and H-MEM prompt, used as specifications",
+    "Meterless H-MEM reference implementation (Apache-2.0), adapted into casefile/hmem/ with attribution",
+    "NVIDIA Nemotron 3.5 Lightning 30B A3B and Nemotron 3.5 Super VL 120B A12B, via Nightshift",
+    "RugCheck and DexScreener public APIs",
+    "Open-source libraries: FastAPI, uvicorn, requests, python-dotenv, pytest, httpx, React 18.3.1, react-router-dom, Vite, TypeScript, Playwright, tsx",
+    "Claude Design export design/Casefile.html (UI design; EB Garamond and IBM Plex Mono fonts, SIL OFL)"
+  ],
+  "build_window": "2026-10-22 to 2026-10-27; all project code written in this window"
+}
