@@ -1,0 +1,579 @@
+{
+ "case_file": {
+  "mint": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+  "case_id": "m_0c961a12701d",
+  "retrieved_at": "2026-10-23T14:38:06+00:00",
+  "mode": "snapshot",
+  "captured_at": {
+   "first": "2026-10-23T11:04:07.886Z",
+   "last": "2026-10-23T11:04:42.670Z"
+  },
+  "summary": {
+   "mint": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+   "symbol": "kimchisol",
+   "name": "kimchisol",
+   "creator": "DjK5yGvgsCuBnVPnWvf4Rh5T4FFYk8dbRQ823tzs4QGc",
+   "creator_balance": 0.0,
+   "score": 2384,
+   "score_normalised": 31,
+   "rugged": false,
+   "total_holders": 2780,
+   "total_lp_providers": 0,
+   "total_market_liquidity": 3051.638823934426,
+   "total_stable_liquidity": 616.6976455918151,
+   "price": 2.8746773990852717e-06,
+   "mint_authority": null,
+   "freeze_authority": null,
+   "metadata_mutable": false,
+   "update_authority": "11111111111111111111111111111111",
+   "supply": 978762598234543.0,
+   "decimals": 6,
+   "graph_insiders_detected": 23,
+   "detected_at": "2026-10-23T01:47:27.7166946Z",
+   "deploy_platform": "unknown",
+   "launchpad": "Pump.Fun",
+   "transfer_fee_pct": 0.0,
+   "jup_verified": null,
+   "jup_strict": null,
+   "locker_scan_status": "none",
+   "token_program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+   "captured_at": "2026-10-23T11:04:17.910Z"
+  },
+  "pairs": [
+   {
+    "chain": "solana",
+    "dex": "pumpswap",
+    "pair_address": "7c6siqtQYin4p7aieyk1ZheBfzB7YHoucQZVhB5S5fGd",
+    "url": "https://dexscreener.com/solana/7c6siqtqyin4p7aieyk1zhebfzb7yhoucqzvhb5s5fgd",
+    "base_address": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+    "symbol": "kimchisol",
+    "name": "kimchisol",
+    "quote_address": "So11111111111111111111111111111111111111112",
+    "quote_symbol": "SOL",
+    "price_usd": 2.821e-06,
+    "price_native": 2.71e-08,
+    "liquidity_usd": 3001.3,
+    "fdv": 2761.0,
+    "market_cap": 2761.0,
+    "volume_m5": 0.0,
+    "volume_h1": 0.13,
+    "volume_h6": 39.19,
+    "volume_24h": 1685061.06,
+    "price_change_m5": null,
+    "price_change_h1": -1.78,
+    "price_change_h6": 0.21,
+    "price_change_24h": -93.54,
+    "buys_h1": 0,
+    "sells_h1": 4,
+    "buys_24h": 7136,
+    "sells_24h": 7219,
+    "pair_created_at_ms": 1792720245000,
+    "captured_at": "2026-10-23T11:04:07.886Z"
+   },
+   {
+    "chain": "solana",
+    "dex": "meteora",
+    "pair_address": "AZ1jryujUXEAmeq8SwMR8vvWsaa53pqAfg1SSBc1Mqt3",
+    "url": "https://dexscreener.com/solana/az1jryujuxeameq8swmr8vvwsaa53pqafg1ssbc1mqt3",
+    "base_address": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+    "symbol": "kimchisol",
+    "name": "kimchisol",
+    "quote_address": "So11111111111111111111111111111111111111112",
+    "quote_symbol": "SOL",
+    "price_usd": 0.0001453,
+    "price_native": 1.395e-06,
+    "liquidity_usd": 471.34,
+    "fdv": 142263.0,
+    "market_cap": 142263.0,
+    "volume_m5": 0.0,
+    "volume_h1": 0.0,
+    "volume_h6": 0.0,
+    "volume_24h": 3532.4,
+    "price_change_m5": null,
+    "price_change_h1": null,
+    "price_change_h6": null,
+    "price_change_24h": -27.99,
+    "buys_h1": 0,
+    "sells_h1": 0,
+    "buys_24h": 209,
+    "sells_24h": 222,
+    "pair_created_at_ms": 1792720958000,
+    "captured_at": "2026-10-23T11:04:07.886Z"
+   },
+   {
+    "chain": "solana",
+    "dex": "meteora",
+    "pair_address": "EvGgiayx8T8yhKC2qJ5tnthdvrvTycBr3SsRwchSCJLB",
+    "url": "https://dexscreener.com/solana/evggiayx8t8yhkc2qj5tnthdvrvtycbr3ssrwchscjlb",
+    "base_address": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+    "symbol": "kimchisol",
+    "name": "kimchisol",
+    "quote_address": "So11111111111111111111111111111111111111112",
+    "quote_symbol": "SOL",
+    "price_usd": 0.0003588,
+    "price_native": 3.445e-06,
+    "liquidity_usd": 416.82,
+    "fdv": 351246.0,
+    "market_cap": 351246.0,
+    "volume_m5": 0.0,
+    "volume_h1": 0.0,
+    "volume_h6": 0.0,
+    "volume_24h": 1621.52,
+    "price_change_m5": null,
+    "price_change_h1": null,
+    "price_change_h6": null,
+    "price_change_24h": -30.95,
+    "buys_h1": 0,
+    "sells_h1": 0,
+    "buys_24h": 93,
+    "sells_24h": 68,
+    "pair_created_at_ms": 1792722210000,
+    "captured_at": "2026-10-23T11:04:07.886Z"
+   },
+   {
+    "chain": "solana",
+    "dex": "pumpfun",
+    "pair_address": "7a3vkodz4s7MPRB7k46QA6yoa9vSenKVkeFXY2arx8C9",
+    "url": "https://dexscreener.com/solana/7a3vkodz4s7mprb7k46qa6yoa9vsenkvkefxy2arx8c9",
+    "base_address": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+    "symbol": "kimchisol",
+    "name": "kimchisol",
+    "quote_address": "So11111111111111111111111111111111111111112",
+    "quote_symbol": "SOL",
+    "price_usd": 4.273e-05,
+    "price_native": 4.108e-07,
+    "liquidity_usd": null,
+    "fdv": 42735.65,
+    "market_cap": 42735.65,
+    "volume_m5": 0.0,
+    "volume_h1": 0.0,
+    "volume_h6": 0.0,
+    "volume_24h": 22053.53,
+    "price_change_m5": null,
+    "price_change_h1": null,
+    "price_change_h6": null,
+    "price_change_24h": 510.0,
+    "buys_h1": 0,
+    "sells_h1": 0,
+    "buys_24h": 188,
+    "sells_24h": 77,
+    "pair_created_at_ms": 1792720047000,
+    "captured_at": "2026-10-23T11:04:07.886Z"
+   }
+  ],
+  "top_holders": [
+   {
+    "token_account": "ESLyq2nid7aMtY7uqAmyFh3VgJ877Dt3cx156kEPqZwn",
+    "owner": "7c6siqtQYin4p7aieyk1ZheBfzB7YHoucQZVhB5S5fGd",
+    "pct": 86.53868568169322,
+    "ui_amount": 847008288.456165,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": "Pump Fun AMM",
+    "label_type": "AMM"
+   },
+   {
+    "token_account": "DKYWurmHvJaseHY647FaBB55SGecoRL6QGZDe2QvcWMH",
+    "owner": "6EED9NJttKtRXFr2JnwS8LmJMgjRkoEZ9npTwntM5vAq",
+    "pct": 4.467023178550076,
+    "ui_amount": 43721552.126116,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "GmRgzES2wGnrMLEqKu18AM5xYWnfbFiLzVcWAvd4yhLk",
+    "owner": "CNh68YKV926nmYBqoCZzV7XiaAd57Li3im9Qsjh3EMs5",
+    "pct": 1.6893711527041513,
+    "ui_amount": 16534932.988032,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "BtrPzgVGbksp77F5zZQZfzKynViHmToq4MocboFuLDTu",
+    "owner": "4sXXEr45odsTptsnhBPbrZES6Zyw9unCa6Z76Lf936dG",
+    "pct": 1.3955542849245477,
+    "ui_amount": 13659163.378901,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "Hhixx7N26yxbTjkiyh2wzZns4BpyThoyPDhyu233zLz8",
+    "owner": "H65pDamch6Eo8fkT4XWVSzqra6nG38RhYCaZCc87hqx5",
+    "pct": 1.3202866437210712,
+    "ui_amount": 12922471.858228,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "HMPfPe7XEe84aCDvn1VrKoE7RncTurFP6ZQyvWtV7i9t",
+    "owner": "7e19V9QZFxsxFg8QXBfM2Lvr7MLd2EWzBr2iUFyFu9ZC",
+    "pct": 0.8721774857198179,
+    "ui_amount": 8536547.020448,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "784p3hjPHUuzg1yMa5JHvSYWCNRNPLS3wjJsUSf2WFyn",
+    "owner": "7E5gmandZ8B5GMen2xgHRFxcvqY6AzDdk7UkaUQ1ffXt",
+    "pct": 0.522549313991195,
+    "ui_amount": 5114517.242677,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "5USx6ZzDo7Pc6sa9KwkesVDB1gWNhtykXA2UBHSSELvF",
+    "owner": "46mzUiRSEiRSoigHPATjDz4dPviqzXJc2dVetjhFNL82",
+    "pct": 0.3641985385828769,
+    "ui_amount": 3564639.078966,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "5bwNqHm3okP63rgSrNKDCSUGQYCAXrGdANxm4G9qaNu4",
+    "owner": "2JNDTwXs3sEuFNriVhthvJmda5d3LupzSQXpJxCE6US7",
+    "pct": 0.36141513116884816,
+    "ui_amount": 3537396.128241,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "CH3Kt6z6V6E8wEpGv2RpNn6XTs6byYUWMyeRmrqmcypy",
+    "owner": "5WM4c6xoFHfuhPvd1dCa6cbZ3iG97jSYh7e1mUsqPps",
+    "pct": 0.14979948326934903,
+    "ui_amount": 1466181.314589,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "4kEaqcEkSe7ZAvFU9M1Pw4BPmuQg7ad9Fyoh2AtHyih5",
+    "owner": "2h9wX3h5AdHwNXrhvgjVSRDvxT6pnmy6oKLq2HfPrzTe",
+    "pct": 0.1351268922020117,
+    "ui_amount": 1322571.48103,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "38a1dsxJvSyYcKPZR9yYHG7dsL2e6mozffmxaUEExbhg",
+    "owner": "7Mx5ALEK6BwMoLcMCswZGzrYVWWrqxaTL8VhdgSrxQyh",
+    "pct": 0.09699039192622641,
+    "ui_amount": 949305.680055,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "4P8gxsinGcUrKZuLftKUmj2R4CLSihy2repLy4J3scvi",
+    "owner": "7PprXTNYbBc5jvFFfc2KkUgjdixrKHGp9yL9hZFUaTQa",
+    "pct": 0.08142380581915393,
+    "ui_amount": 796945.757417,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "Dk4rrnym18RHqoPrsmB8thhhog21gyxeH1ASQqUVfcuw",
+    "owner": "GYaf9CfPjM2JXLGkSyMnfaQDFj7uej9EdK1kXkuS55NC",
+    "pct": 0.07704431691803348,
+    "ui_amount": 754080.958059,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "GQWSkTfh2S8BzooG7R4dwwZx3RNzSgPP4NrEpxDrL5je",
+    "owner": "8vxHa1zKiETX9hK4RRYL133hh3GWiDtFW75hEQRZxYbh",
+    "pct": 0.06792903523839774,
+    "ui_amount": 664863.990255,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "CJy8TyPMdmryXTH9vigZhM8MVgwf4pPWcPTfCg5LwmuE",
+    "owner": "HqTf4jNTsyKcjSB62vBRybgBPvqCPpCLNtA24yPkikWu",
+    "pct": 0.05724533843412507,
+    "ui_amount": 560295.961826,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "822qcBehgV5Q7F2YxYcXFi6vfHFNBjNw73MZh7Bc6vDD",
+    "owner": "5yT5HEJybxmmnmYqr6D4stuV4sDL9SbKgA5GAwXeNVRA",
+    "pct": 0.05598267655377822,
+    "ui_amount": 547937.499599,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "6awhSbSaEXPXsDRqxt98VWib55vVtBGvf4xbBjfYRQTT",
+    "owner": "524SaWxmQcpTKvYxXM4SneQE5ax6jD8btpEK3D3Mz5dw",
+    "pct": 0.03558207850220128,
+    "ui_amount": 348264.076054,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "wPJua7FnRFP4KWtpajuZzbWyPBHU4GLnMXNaV1itMFi",
+    "owner": "EmtosZHaoeqm8jhhLh5TnkXCM1AGMFwcSJXhKbkM1wwB",
+    "pct": 0.02389086947843972,
+    "ui_amount": 233834.894848,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "4g9GxRVEnVWxdULSt9wZ1ky67outPc7Wn3WT63oS1TNK",
+    "owner": "G4DQ5HSKZDQ9KdFv1Pcxs6e4pr9gxDQiPcKKii2Z7561",
+    "pct": 0.011266595213579565,
+    "ui_amount": 110273.220045,
+    "insider": false,
+    "captured_at": "2026-10-23T11:04:27.527Z",
+    "label": null,
+    "label_type": null
+   }
+  ],
+  "risks": [
+   {
+    "name": "Low Liquidity",
+    "level": "danger",
+    "score": 2383,
+    "description": "Low amount of liquidity in the token pool",
+    "value": "$616.71",
+    "captured_at": "2026-10-23T11:04:33.963Z"
+   }
+  ],
+  "insider_networks": [
+   {
+    "network_id": "peaceful-coffee-lion",
+    "type": "transfer",
+    "size": 17,
+    "active_accounts": 17,
+    "token_amount": 16100888639148.0,
+    "current_holding": 16100888639148.0,
+    "captured_at": "2026-10-23T11:04:38.347Z"
+   },
+   {
+    "network_id": "zealous-chocolate-wombat",
+    "type": "transfer",
+    "size": 6,
+    "active_accounts": 6,
+    "token_amount": 1809650857821.0,
+    "current_holding": 1809650857821.0,
+    "captured_at": "2026-10-23T11:04:38.347Z"
+   }
+  ],
+  "markets": [
+   {
+    "market": "7c6siqtQYin4p7aieyk1ZheBfzB7YHoucQZVhB5S5fGd",
+    "market_type": "pump_fun_amm",
+    "mint_a": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+    "mint_b": "So11111111111111111111111111111111111111112",
+    "base_usd": 2434.8755836628357,
+    "quote_usd": 610.4417928025841,
+    "lp_locked_pct": 100.0,
+    "lp_locked_usd": 3045.31737646542,
+    "captured_at": "2026-10-23T11:04:42.670Z"
+   },
+   {
+    "market": "AZ1jryujUXEAmeq8SwMR8vvWsaa53pqAfg1SSBc1Mqt3",
+    "market_type": "meteoraDlmm",
+    "mint_a": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+    "mint_b": "So11111111111111111111111111111111111111112",
+    "base_usd": 0.049099402853528505,
+    "quote_usd": 3.643900319351675,
+    "lp_locked_pct": 0.0,
+    "lp_locked_usd": 0.0,
+    "captured_at": "2026-10-23T11:04:42.670Z"
+   },
+   {
+    "market": "EvGgiayx8T8yhKC2qJ5tnthdvrvTycBr3SsRwchSCJLB",
+    "market_type": "meteoraDlmm",
+    "mint_a": "2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+    "mint_b": "So11111111111111111111111111111111111111112",
+    "base_usd": 0.01649527692165588,
+    "quote_usd": 2.620890391303933,
+    "lp_locked_pct": 0.0,
+    "lp_locked_usd": 0.0,
+    "captured_at": "2026-10-23T11:04:42.670Z"
+   }
+  ],
+  "lockers": [],
+  "sources": [
+   {
+    "kind": "holders",
+    "view": "casefile.m_0c961a12701d_holders",
+    "read_from": "casefile_snap.m_0c961a12701d_holders_labelled_snap",
+    "snapshot_sql": "SELECT h.*, COALESCE(ko.name, kt.name) AS label, COALESCE(ko.type, kt.type) AS label_type FROM casefile_snap.m_0c961a12701d_holders_snap h LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_0c961a12701d_known_accounts_snap GROUP BY address) ko ON ko.address = h.owner LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_0c961a12701d_known_accounts_snap GROUP BY address) kt ON kt.address = h.token_account",
+    "api": "https://api.rugcheck.xyz/v1/tokens/2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump/report",
+    "via": "rugcheck_rest.m_0c961a12701d_rug"
+   },
+   {
+    "kind": "insiders",
+    "view": "casefile.m_0c961a12701d_insiders",
+    "read_from": "casefile_snap.m_0c961a12701d_insiders_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_0c961a12701d_insiders",
+    "api": "https://api.rugcheck.xyz/v1/tokens/2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump/report",
+    "via": "rugcheck_rest.m_0c961a12701d_rug"
+   },
+   {
+    "kind": "known_accounts",
+    "view": "casefile.m_0c961a12701d_known_accounts",
+    "read_from": "casefile.m_0c961a12701d_known_accounts",
+    "snapshot_sql": null,
+    "api": "https://api.rugcheck.xyz/v1/tokens/2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump/report",
+    "via": "rugcheck_rest.m_0c961a12701d_rug"
+   },
+   {
+    "kind": "markets",
+    "view": "casefile.m_0c961a12701d_markets",
+    "read_from": "casefile_snap.m_0c961a12701d_markets_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_0c961a12701d_markets",
+    "api": "https://api.rugcheck.xyz/v1/tokens/2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump/report",
+    "via": "rugcheck_rest.m_0c961a12701d_rug"
+   },
+   {
+    "kind": "pairs",
+    "view": "casefile.m_0c961a12701d_pairs",
+    "read_from": "casefile_snap.m_0c961a12701d_pairs_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_0c961a12701d_pairs",
+    "api": "https://api.dexscreener.com/latest/dex/tokens/2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+    "via": "dexscreener_rest.m_0c961a12701d_dex"
+   },
+   {
+    "kind": "risks",
+    "view": "casefile.m_0c961a12701d_risks",
+    "read_from": "casefile_snap.m_0c961a12701d_risks_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_0c961a12701d_risks",
+    "api": "https://api.rugcheck.xyz/v1/tokens/2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump/report",
+    "via": "rugcheck_rest.m_0c961a12701d_rug"
+   },
+   {
+    "kind": "summary",
+    "view": "casefile.m_0c961a12701d_summary",
+    "read_from": "casefile_snap.m_0c961a12701d_summary_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_0c961a12701d_summary",
+    "api": "https://api.rugcheck.xyz/v1/tokens/2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump/report",
+    "via": "rugcheck_rest.m_0c961a12701d_rug"
+   }
+  ],
+  "errors": {}
+ },
+ "computed": {
+  "worst_price_change_pct": {
+   "value": -93.54,
+   "formula": "lowest price_change_h1/h6/24h across own pairs with >= 10% of the top pair's liquidity"
+  },
+  "own_liquidity_usd": {
+   "value": 3889.46,
+   "formula": "sum liquidity_usd of own pairs"
+  },
+  "top_pair_liquidity_usd": {
+   "value": 3001.3,
+   "formula": "liquidity_usd of the top own pair"
+  },
+  "top_pair_fdv_usd": {
+   "value": 2761.0,
+   "formula": "fdv of the top own pair"
+  },
+  "volume_to_liquidity_24h": {
+   "value": 561.4,
+   "formula": "top own pair volume_24h / liquidity_usd"
+  },
+  "insider_networks_supply_pct": {
+   "value": 1.83,
+   "formula": "100 * sum(insiders.token_amount) / summary.supply"
+  },
+  "largest_insider_network_supply_pct": {
+   "value": 1.65,
+   "formula": "100 * max(insiders.token_amount) / summary.supply"
+  },
+  "danger_risks": {
+   "value": [
+    "Low Liquidity"
+   ],
+   "formula": "names of risks with level danger"
+  },
+  "pair_age_days": {
+   "value": 0.5,
+   "formula": "now - oldest own pair pair_created_at_ms"
+  },
+  "established": {
+   "value": false,
+   "formula": "pair_age_days > 180 AND summary.total_holders > 100000"
+  },
+  "top10_pct_all": {
+   "value": 97.68,
+   "formula": "sum holders.pct of the top 10 rows"
+  },
+  "top10_pct_excluding_pools_lockers": {
+   "value": 11.14,
+   "formula": "top 10 holders.pct minus rows labelled AMM or LOCKER"
+  },
+  "top10_pct_excluding_pools_lockers_custodians": {
+   "value": 11.14,
+   "formula": "as above, also minus wallets H-MEM marks likely custodian"
+  },
+  "insider_flagged_holders": {
+   "value": 0,
+   "formula": "count holders.insider = true"
+  },
+  "buy_sell_ratio_24h": {
+   "value": 0.99,
+   "formula": "top own pair buys_24h / sells_24h"
+  },
+  "liquidity_to_fdv": {
+   "value": 1.087,
+   "formula": "top own pair liquidity_usd / fdv"
+  },
+  "own_pair_count": {
+   "value": 4,
+   "formula": "DexScreener pairs whose base token is this mint"
+  }
+ },
+ "snapshot_tables": {
+  "summary": "casefile_snap.m_0c961a12701d_summary_snap",
+  "pairs": "casefile_snap.m_0c961a12701d_pairs_snap",
+  "markets": "casefile_snap.m_0c961a12701d_markets_snap",
+  "risks": "casefile_snap.m_0c961a12701d_risks_snap",
+  "insiders": "casefile_snap.m_0c961a12701d_insiders_snap",
+  "holders": "casefile_snap.m_0c961a12701d_holders_labelled_snap"
+ },
+ "source_urls": {
+  "dexscreener": "https://api.dexscreener.com/latest/dex/tokens/2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump",
+  "rugcheck": "https://api.rugcheck.xyz/v1/tokens/2LSQcdPsYvp1jqkth71xDPYRd7VcPYJX2972nj9spump/report"
+ },
+ "established": false,
+ "reconstructed": true,
+ "note": "rebuilt from the frozen snapshot after the run; same rows the agents read (runs before 2026-10-23 ~13:00 UTC saw null fields omitted)"
+}

@@ -1,0 +1,28 @@
+{
+ "case_id": "m_d2f031d73387",
+ "run_id": "6051a8fa6f",
+ "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+ "symbol": "$WIF",
+ "rugcheck_rugged": false,
+ "label": "CAUTION",
+ "one_line": "No strong rug signals remain; only weak ratio and modest sell-pressure signals are present.",
+ "duration_s": 319.8,
+ "llm_calls": 12,
+ "models_used": [
+  "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "nvidia/nemotron-3.5-super-vl-120b-a12b"
+ ],
+ "recorded_at": "2026-10-23T12:50:36.858+00:00",
+ "agent_version": null,
+ "events": 32,
+ "memory_stored": {
+  "created": 0,
+  "updated": 20,
+  "unchanged": 0,
+  "derived": 0,
+  "derived_ids": [],
+  "established": true
+ },
+ "selection": "5 runs; 4 with a verdict; 2 made with the current prompts; chose 6051a8fa6f (started 2026-10-23T12:50:36Z): verdict, 0 skeptic failures, 0 retries; fewest retries, then most recent",
+ "redactions": 0
+}

@@ -117,3 +117,24 @@ def test_memory(client):
 def test_cors(client):
     r = client.options("/api/cases", headers={"Origin": "http://localhost:5173", "Access-Control-Request-Method": "GET"})
     assert r.headers.get("access-control-allow-origin") == "http://localhost:5173"
+
+
+def test_replay_resume_from(client):
+    ev = client.get(f"/api/cases/{YAGI}/trace").json()["events"]
+    got = []
+    with client.stream("GET", f"/api/cases/{YAGI}/replay", params={"speed": 16, "from": len(ev) - 2}) as r:
+        for line in r.iter_lines():
+            if line.startswith("data: "):
+                got.append(json.loads(line[6:]))
+    assert [g["type"] for g in got] == [ev[-2]["type"], "verdict", "done"]
+    assert got[0]["seq"] == len(ev) - 1
+
+
+def test_web_ui_served_when_built(client):
+    from casefile.server.app import WEB_DIST
+    if not (WEB_DIST / "index.html").exists():
+        pytest.skip("web/dist not built")
+    for path in ("/", f"/case/{YAGI}", f"/case/{YAGI}/verdict", "/memory"):
+        r = client.get(path)
+        assert r.status_code == 200 and "<div id=\"root\">" in r.text
+    assert client.get("/api/nope").status_code == 404

@@ -8,3 +8,7 @@ __pycache__/
 .DS_Store
 runs/
 node_modules/
+web/node_modules/
+web/dist-static/
+design/src/res/
+web/*.tsbuildinfo

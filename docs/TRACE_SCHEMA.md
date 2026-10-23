@@ -224,8 +224,8 @@ An investigator's claim, with its evidence. Each evidence item carries `verified
  "case_id": "m_bd95541d260d",
  "type": "claim",
  "agent": "holders",
- "model": null,
- "receipt_id": null,
+ "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+ "receipt_id": "rcpt_req_sw67rqoo",
  "title": "H1: The 874 detected graph insiders hold 85.52% of the token supply, with the largest network controlling 69.43%.",
  "detail": {
   "id": "H1",
@@ -270,8 +270,8 @@ The skeptic (deep model) accepts or rejects one claim. `round` is `review` or `r
  "case_id": "m_bd95541d260d",
  "type": "skeptic_decision",
  "agent": "skeptic",
- "model": null,
- "receipt_id": null,
+ "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+ "receipt_id": "rcpt_req_qernre93",
  "title": "Skeptic rejects H1: '874 insiders' unverified, conflicts with total_holders=165; only supply pcts verified.",
  "detail": {
   "id": "H1",
@@ -295,8 +295,8 @@ Follows a first-round rejection: the claim goes back to its investigator once wi
  "case_id": "m_bd95541d260d",
  "type": "rework_requested",
  "agent": "skeptic",
- "model": null,
- "receipt_id": null,
+ "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+ "receipt_id": "rcpt_req_qernre93",
  "title": "H1 sent back once: Remove unsupported insider count or provide verified count; retain verified pct figures.",
  "detail": {
   "id": "H1",
@@ -390,8 +390,8 @@ The final verdict from accepted claims only. Every `why` item names an accepted 
  "case_id": "m_bd95541d260d",
  "type": "verdict",
  "agent": "verdict",
- "model": null,
- "receipt_id": null,
+ "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+ "receipt_id": "rcpt_req_rjodhajv",
  "title": "Verdict RUGGED: Insiders control 85.52% of supply, price fell 97.72%, and only about $2.4k liquidity remains with a danger-level low-li…",
  "detail": {
   "label": "RUGGED",

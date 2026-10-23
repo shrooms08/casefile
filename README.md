@@ -23,6 +23,21 @@ uv run python tests/test_hmem.py          # BONK then WIF in fresh processes (li
 uv run pytest tests/ -q                   # API tests in replay mode (no Zetaris/Nightshift)
 ```
 
+## Web app
+
+```bash
+uv run casefile serve            # API + built UI at http://localhost:8000 (needs web/dist, committed)
+cd web && npm install && npm run dev        # development UI at :5173, proxies /api to :8000
+cd web && npm run build                     # web/dist for `casefile serve` (VITE_DATA_SOURCE=api)
+cd web && npm run build:static              # web/dist-static: no backend, replays web/public/demo/
+uv run python scripts/build_static_demo.py  # regenerate web/public/demo/ from demo_cases/ via the API
+node scripts/ui_check.mjs                   # Playwright check of the static build, screenshots in web/screenshots/
+```
+
+The UI is ported from the Claude Design export `design/Casefile.html` (`scripts/unpack_design.py`
+unpacks it into `design/src/`). `web/src/data/` has one `DataSource` interface with two sources: `api`
+(FastAPI, SSE) and `static` (JSON in `web/public/demo/`, client-side replay with the server's timing).
+
 ## API (for the UI)
 
 ```bash

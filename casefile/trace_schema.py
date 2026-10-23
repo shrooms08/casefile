@@ -21,6 +21,8 @@ TYPES = ("case_opened", "memory_recalled", "plan", "investigator_started", "sql_
          "skeptic_decision", "rework_requested", "claim_dropped", "retry", "fallback", "verdict", "error")
 
 _FAILED = {"investigator_failed", "fix_failed", "run_failed"}
+_LLM_STEPS = {"plan", "investigate", "fix", "review", "re_review", "verdict"}
+_FROM_LLM = {"claim", "skeptic_decision", "rework_requested", "verdict"}
 _SKIP = {"investigate", "review", "re_review", "fix", "verdict", "memory_store", "done", "computed",
          "memory_observe"}
 
@@ -45,17 +47,25 @@ def normalize(raw: Iterable[dict]) -> list[dict]:
     observed: dict | None = None
     started: set[str] = set()
     native_started = False  # runs that record agent_version also log investigator_started themselves
+    # Claims, decisions and the verdict are logged right after the LLM call that produced them;
+    # that call's raw event carries the model and receipt, so carry them forward per agent.
+    last_llm: dict[str, tuple] = {}
 
     def emit(r: dict, type_: str, title: str, detail: dict, agent: str | None = None) -> None:
         assert type_ in TYPES, type_
+        model, receipt = r.get("model"), r.get("receipt_id")
+        if not receipt and type_ in _FROM_LLM:
+            model, receipt = last_llm.get(r.get("agent"), (model, receipt))
         out.append({
             "seq": len(out) + 1, "ts": r.get("ts"), "run_id": r.get("run_id"), "case_id": r.get("case_id"),
-            "type": type_, "agent": agent or r.get("agent"), "model": r.get("model"),
-            "receipt_id": r.get("receipt_id"), "title": title, "detail": detail,
+            "type": type_, "agent": agent or r.get("agent"), "model": model,
+            "receipt_id": receipt, "title": title, "detail": detail,
         })
 
     for r in raw:
         step, agent, o = r.get("step"), r.get("agent"), r.get("output")
+        if r.get("receipt_id") and step in _LLM_STEPS:
+            last_llm[agent] = (r.get("model"), r.get("receipt_id"))
         if step == "computed":
             computed = o
         elif step == "memory_observe":

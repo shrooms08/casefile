@@ -15,11 +15,12 @@ import threading
 import time
 import uuid
 from datetime import datetime
+from pathlib import Path
 from typing import Any
 
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, StreamingResponse
+from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from pydantic import BaseModel
 
 from casefile.server.store import Store, _lines, case_summary
@@ -155,14 +156,17 @@ def create_app(replay: bool = False, store: Store | None = None) -> FastAPI:
                 "events": r.events}
 
     @app.get("/api/cases/{case_id}/replay")
-    async def replay_stream(case_id: str, speed: int = Query(4), run: str | None = None):
+    async def replay_stream(case_id: str, speed: int = Query(4), run: str | None = None,
+                            from_seq: int = Query(0, alias="from", ge=0)):
+        """Recorded run as SSE. `from=<seq>` resumes after that event (pause / speed change / seek)."""
         if speed not in REPLAY_SPEEDS:
             raise HTTPException(400, f"speed must be one of {REPLAY_SPEEDS}")
         r = _run_or_404(case_id, run)
-        events = list(r.events)
+        events = [e for e in r.events if e["seq"] > from_seq]
+        prev_ts = next((e.get("ts") for e in r.events if e["seq"] == from_seq), None)
 
         async def gen():
-            prev = None
+            prev = _ts(prev_ts)
             yield ": casefile replay\n\n"
             for e in events:
                 t = _ts(e.get("ts"))
@@ -238,4 +242,24 @@ def create_app(replay: bool = False, store: Store | None = None) -> FastAPI:
     def memory() -> dict:
         return store.memory()
 
+    _mount_web(app)
     return app
+
+
+WEB_DIST = Path(__file__).resolve().parent.parent.parent / "web" / "dist"
+
+
+def _mount_web(app: FastAPI, dist: Path = WEB_DIST) -> None:
+    """Serve the built UI (web/dist) at /, with client-side routes falling back to index.html."""
+    index = dist / "index.html"
+    if not index.exists():
+        return
+
+    @app.get("/{path:path}", include_in_schema=False)
+    def web(path: str):
+        if path.startswith("api/") or path == "api":
+            raise HTTPException(404, "not found")
+        target = (dist / path).resolve()
+        if path and target.is_file() and dist.resolve() in target.parents:
+            return FileResponse(target)
+        return FileResponse(index)

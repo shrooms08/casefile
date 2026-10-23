@@ -1,0 +1,13 @@
+/* From the design export (design/src/index.html <style>), unchanged. */
+body{margin:0;background:#131210;color:#e8e2d4;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#e8e2d4;text-decoration:underline;text-underline-offset:3px}
+a:hover{color:#d9a24a}
+button{font:inherit}
+@keyframes cfIn{from{opacity:0;translate:0 -14px}to{opacity:1;translate:0 0}}
+@keyframes cfStamp{0%{opacity:0;scale:1.9}70%{opacity:1;scale:.94}100%{opacity:1;scale:1}}
+@keyframes cfSheet{from{opacity:0;translate:0 36px}to{opacity:1;translate:0 0}}
+@keyframes cfPulse{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* The design's style-hover="translate:0 -5px" on shelf folders. */
+.cf-folder:hover{translate:0 -5px}
