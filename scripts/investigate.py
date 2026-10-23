@@ -96,8 +96,8 @@ def main() -> int:
     rej = len({d['id'] for d in state.dropped})
     print(f"  claims: {acc} accepted, {rej} rejected/dropped, {len(state.claims)} total")
     print(f"  models: {', '.join(v['models_used'])}")
-    print(f"  {state.llm_calls} LLM calls, {total:.0f}s total, trace runs/{state.case_id}/trace.jsonl "
-          f"(run {state.run_id})")
+    print(f"  {state.llm_calls} LLM calls, {total:.0f}s total, trace runs/{state.case_id}/{state.run_id}/trace.jsonl "
+          )
     if "--json" in sys.argv:
         print(json.dumps({"verdict": v, "accepted": acc, "rejected": rej, "seconds": round(total, 1),
                           "llm_calls": state.llm_calls}, default=str))

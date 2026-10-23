@@ -5,8 +5,9 @@
 3. WIF's recall must include the two top holders BONK and WIF share, from the BONK case, and
    both must carry the derived "likely custodian or exchange" note.
 
-Run: uv run python tests/test_hmem.py   (or: uv run pytest tests/test_hmem.py)
-Takes a few minutes: these are two full investigations through Zetaris and Nightshift.
+Run: uv run python tests/test_hmem.py   (or: CASEFILE_LIVE_TESTS=1 uv run pytest tests/test_hmem.py)
+Takes several minutes: two full investigations through Zetaris and Nightshift, so pytest skips it
+unless CASEFILE_LIVE_TESTS=1.
 """
 
 from __future__ import annotations
@@ -17,6 +18,8 @@ import subprocess
 import sys
 import tempfile
 from pathlib import Path
+
+import pytest
 
 ROOT = Path(__file__).resolve().parent.parent
 BONK = "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263"
@@ -32,11 +35,13 @@ def _investigate(mint: str, env: dict) -> dict:
 
 
 def _last_run_events(case_id: str) -> list[dict]:
-    lines = [json.loads(l) for l in (ROOT / "runs" / case_id / "trace.jsonl").read_text().splitlines() if l]
-    run = lines[-1]["run_id"]
-    return [e for e in lines if e["run_id"] == run]
+    runs = [p for p in (ROOT / "runs" / case_id).iterdir() if (p / "trace.jsonl").exists()]
+    latest = max(runs, key=lambda p: (p / "trace.jsonl").stat().st_mtime)
+    return [json.loads(l) for l in (latest / "trace.jsonl").read_text().splitlines() if l]
 
 
+@pytest.mark.skipif(os.environ.get("CASEFILE_LIVE_TESTS") != "1" and __name__ != "__main__",
+                    reason="live test: set CASEFILE_LIVE_TESTS=1 (needs Zetaris + Nightshift)")
 def test_wif_recalls_bonk_custodians() -> None:
     mem = tempfile.mkdtemp(prefix="hmem-test-")
     env = {**os.environ, "CASEFILE_HMEM_DIR": mem, "PYTHONUNBUFFERED": "1"}

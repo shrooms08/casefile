@@ -19,8 +19,22 @@ uv sync && npm install                    # Python deps + tsx for H-MEM
 uv run python scripts/check_zetaris.py    # Zetaris up?
 uv run python scripts/check_nightshift.py # Nightshift up, roles routed?
 uv run python scripts/investigate.py <mint>
-uv run python tests/test_hmem.py          # BONK then WIF in fresh processes
+uv run python tests/test_hmem.py          # BONK then WIF in fresh processes (live)
+uv run pytest tests/ -q                   # API tests in replay mode (no Zetaris/Nightshift)
 ```
+
+## API (for the UI)
+
+```bash
+uv run casefile serve            # live: http://127.0.0.1:8000, needs Zetaris + Nightshift
+uv run casefile serve --replay   # replay only: serves demo_cases/, never calls Zetaris/Nightshift
+```
+
+`GET /api/health`, `GET /api/cases`, `GET /api/cases/{case_id}`, `GET /api/cases/{case_id}/trace?run=`,
+`GET /api/cases/{case_id}/replay?speed=1|4|16` (SSE), `POST /api/investigate {mint}` (live only),
+`GET /api/cases/{case_id}/stream?run=` (SSE, live only), `GET /api/memory`. Event schema:
+`docs/TRACE_SCHEMA.md`. Each run lives in `runs/<case_id>/<run_id>/`; recorded demo runs are exported
+with `scripts/export_demo_case.py <case_id>` into `demo_cases/` (committed).
 
 H-MEM conformance (from a checkout of github.com/Meterless/Meterless, in `engines/hmem`):
 `HMEM_IMPL=$PWD/../../../casefile/casefile/hmem/index.ts npx --yes tsx conformance/runner.ts`

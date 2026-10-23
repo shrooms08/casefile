@@ -54,7 +54,7 @@ def call_json(state: CaseState, trace: Trace, *, agent: str, step: str, role: st
     while True:
         attempt += 1
         try:
-            r = llm.chat(messages, role=role, case_id=state.case_id, json_mode=True)
+            r = llm.chat(messages, role=role, case_id=state.case_id, json_mode=True, run_id=state.run_id)
         except llm.MeterlessError as e:
             state.llm_calls += 1
             trace.log(f"{step}_error", agent, {"attempt": attempt, "error": str(e)[:400]}, input_summary=input_summary)

@@ -1,0 +1,1155 @@
+{
+ "records": 74,
+ "wallets": 59,
+ "custodians": 7,
+ "multi_case_wallets": 7,
+ "items": [
+  {
+   "wallet": "3B7XAQrLoEMDEGvX8569F9GRb9PcXXocJmj5wvhhei9z",
+   "case_count": 2,
+   "cases": [
+    "m_d2f031d73387",
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif",
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution",
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": true,
+   "custodian_notes": [
+    {
+     "memory_id": "mem-47",
+     "note": "wallet 3B7XAQrLoEMDEGvX8569F9GRb9PcXXocJmj5wvhhei9z is likely a custodian or exchange: top holder of 2 different established tokens ($wif, bonk)",
+     "derived_from": [
+      "mem-35",
+      "mem-8"
+     ]
+    }
+   ]
+  },
+  {
+   "wallet": "4xLpwxgYuPwPvtQjE94RLS4WZ4aD8NJYYKr2AJk99Qdg",
+   "case_count": 2,
+   "cases": [
+    "m_d2f031d73387",
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif",
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution",
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": true,
+   "custodian_notes": [
+    {
+     "memory_id": "mem-44",
+     "note": "wallet 4xLpwxgYuPwPvtQjE94RLS4WZ4aD8NJYYKr2AJk99Qdg is likely a custodian or exchange: top holder of 2 different established tokens ($wif, bonk)",
+     "derived_from": [
+      "mem-25",
+      "mem-4"
+     ]
+    }
+   ]
+  },
+  {
+   "wallet": "51yZyDSnec4xnUv7XLRVYcDyV4x3wUtzrDcRaYbmQU5j",
+   "case_count": 2,
+   "cases": [
+    "m_d2f031d73387",
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif",
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution",
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": true,
+   "custodian_notes": [
+    {
+     "memory_id": "mem-42",
+     "note": "wallet 51yZyDSnec4xnUv7XLRVYcDyV4x3wUtzrDcRaYbmQU5j is likely a custodian or exchange: top holder of 2 different established tokens ($wif, bonk)",
+     "derived_from": [
+      "mem-22",
+      "mem-3"
+     ]
+    }
+   ]
+  },
+  {
+   "wallet": "9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM",
+   "case_count": 2,
+   "cases": [
+    "m_d2f031d73387",
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif",
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution",
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": true,
+   "custodian_notes": [
+    {
+     "memory_id": "mem-43",
+     "note": "wallet 9WzDXwBbmkg8ZTbNMqUxvQRAyrZzDsGYdLVL9zYtAWWM is likely a custodian or exchange: top holder of 2 different established tokens ($wif, bonk)",
+     "derived_from": [
+      "mem-2",
+      "mem-23"
+     ]
+    }
+   ]
+  },
+  {
+   "wallet": "AVPKzX2QZ8E23SWR728yhMTnnqr9UjAZdgemfaE3qHg5",
+   "case_count": 2,
+   "cases": [
+    "m_d2f031d73387",
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif",
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution",
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": true,
+   "custodian_notes": [
+    {
+     "memory_id": "mem-46",
+     "note": "wallet AVPKzX2QZ8E23SWR728yhMTnnqr9UjAZdgemfaE3qHg5 is likely a custodian or exchange: top holder of 2 different established tokens ($wif, bonk)",
+     "derived_from": [
+      "mem-13",
+      "mem-28"
+     ]
+    }
+   ]
+  },
+  {
+   "wallet": "CK8i4zFXkDE2KWfyg7g9S748r6mwxajbcKcyGhQMR3qQ",
+   "case_count": 2,
+   "cases": [
+    "m_d2f031d73387",
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif",
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution",
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": true,
+   "custodian_notes": [
+    {
+     "memory_id": "mem-45",
+     "note": "wallet CK8i4zFXkDE2KWfyg7g9S748r6mwxajbcKcyGhQMR3qQ is likely a custodian or exchange: top holder of 2 different established tokens ($wif, bonk)",
+     "derived_from": [
+      "mem-12",
+      "mem-26"
+     ]
+    }
+   ]
+  },
+  {
+   "wallet": "GBrURzmtWujJRTA3Bkvo7ZgWuZYLMMwPCwre7BejJXnK",
+   "case_count": 2,
+   "cases": [
+    "m_d2f031d73387",
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif",
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution",
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": true,
+   "custodian_notes": [
+    {
+     "memory_id": "mem-48",
+     "note": "wallet GBrURzmtWujJRTA3Bkvo7ZgWuZYLMMwPCwre7BejJXnK is likely a custodian or exchange: top holder of 2 different established tokens ($wif, bonk)",
+     "derived_from": [
+      "mem-15",
+      "mem-37"
+     ]
+    }
+   ]
+  },
+  {
+   "wallet": "1tjoQzWg21ceMAhyLVs4s2Zc1Pm27mLTcJ9EfEFu7km",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "21mN7RwBTbKUfHTYR2GJQdxwBtUqsBfvwym8o5qGKJtw",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "2JNDTwXs3sEuFNriVhthvJmda5d3LupzSQXpJxCE6US7",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "2h9wX3h5AdHwNXrhvgjVSRDvxT6pnmy6oKLq2HfPrzTe",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "3gd3dqgtJ4jWfBfLYTX67DALFetjc5iS72sCgRhCkW2u",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "46mzUiRSEiRSoigHPATjDz4dPviqzXJc2dVetjhFNL82",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "48v24zDTmmFn7QkbefbXHRPUytm2rZ8482K2ZgascsuA",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "4sXXEr45odsTptsnhBPbrZES6Zyw9unCa6Z76Lf936dG",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "524SaWxmQcpTKvYxXM4SneQE5ax6jD8btpEK3D3Mz5dw",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "5Q544fKrFoe6tsEbD7S8EmxGTJYAKtTVhAW5Q5pge4j1",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "5WM4c6xoFHfuhPvd1dCa6cbZ3iG97jSYh7e1mUsqPps",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "5oNhn2ESFHgg52xiEKBt93cEEnbsoUoekcxXsWpLbHUJ",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "5yT5HEJybxmmnmYqr6D4stuV4sDL9SbKgA5GAwXeNVRA",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "634QWfYYzXuqdDWoVtNgQisVYkTdBmfBbBPYZoNZyHwE",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "6EED9NJttKtRXFr2JnwS8LmJMgjRkoEZ9npTwntM5vAq",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "6LY1JzAFVZsP2a2xKrtU6znQMQ5h4i7tocWdgrkZzkzF",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "7E5gmandZ8B5GMen2xgHRFxcvqY6AzDdk7UkaUQ1ffXt",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "7Mx5ALEK6BwMoLcMCswZGzrYVWWrqxaTL8VhdgSrxQyh",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "7PprXTNYbBc5jvFFfc2KkUgjdixrKHGp9yL9hZFUaTQa",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "7RuGitVFXYZQ3Q3QEVSs14Jggv6a9Ky8AEthBENPqrCd",
+   "case_count": 1,
+   "cases": [
+    "m_bd95541d260d"
+   ],
+   "roles": [
+    "creator",
+    "holder"
+   ],
+   "tokens": [
+    "ヤギ"
+   ],
+   "verdicts": {
+    "m_bd95541d260d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "7c6siqtQYin4p7aieyk1ZheBfzB7YHoucQZVhB5S5fGd",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "7e19V9QZFxsxFg8QXBfM2Lvr7MLd2EWzBr2iUFyFu9ZC",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "8Mm46CsqxiyAputDUp2cXHg41HE3BfynTeMBDwzrMZQH",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "8vxHa1zKiETX9hK4RRYL133hh3GWiDtFW75hEQRZxYbh",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "9AhKqLR67hwapvG8SA2JFXaCshXc9nALJjpKaHZrsbkw",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "creator"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "9RpzaFh4J8F6Qg1gjnhrhSp9eXdVDjsesZXe53qp7ubB",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "9UnZnrFJ1CXCmCorgGU9NvYkX5np1h4v4ympx3Nrdw3v",
+   "case_count": 1,
+   "cases": [
+    "m_bd95541d260d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "ヤギ"
+   ],
+   "verdicts": {
+    "m_bd95541d260d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "9XQyVNcE5y4dYSFmTj7oFdHQHqqGZ7UhsW18A75Fw6NK",
+   "case_count": 1,
+   "cases": [
+    "m_bd95541d260d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "ヤギ"
+   ],
+   "verdicts": {
+    "m_bd95541d260d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "ADaENsRth44fqKE9vwXwQjjiNr6ZLd2jVTEkCp8hfRcL",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "Am8MAEorCMAKxphqjAz3Ff59NEwPm4W2eS3DQLi2B4hg",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "CBEADkb8TZAXHjVE3zwad4L995GZE7rJcacJ7asebkVG",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "CJjCPXBnSt6wRoyi7wzcMj5NbWvmPtzxE2JpWDMTRxj4",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "CMivUnnbDHxLq9ChV1bSuiQE5ycZf6JVvFFDePMHhHYK",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "CNh68YKV926nmYBqoCZzV7XiaAd57Li3im9Qsjh3EMs5",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "DCCkmmxPBS7MydoLZpNwr9NuxEdRr2UFkqr8sh9KT131",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "DDrxSAP14UxBJ9Xz2EaqM9WSTuavX6SuBNtsDpiVhGr6",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "DjK5yGvgsCuBnVPnWvf4Rh5T4FFYk8dbRQ823tzs4QGc",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "creator"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "DqN3URdzKMSYJHHtH73s2bnBEpEwb44nzZLSq5terQ1x",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "E2RvJg2myWpKcbkhBuF81gfhYr6KvmNcDbSmr5qnatYy",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "EFE3j1pcSP1paUzA86zW7989ZjsFP2J7ginyUqo4ewqR",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "EbLm4ZtRqDftrQnZaMMvnwcKjK5ef5vm1Hg3sAPv3tKi",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "EfEgUV2uQAzTooo6L4oYiEm15F6JBTnGiWMejqxPaqL3",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "EmtosZHaoeqm8jhhLh5TnkXCM1AGMFwcSJXhKbkM1wwB",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "F18jTyiQivKmuy3zYsJRjMBPgHab4is16betYFEY67WF",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "F533MxEpGZdqDigTwnDgKYyTGN7n5CekCZr5Untqvv6q",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "FixDET3jRBMjT9M69Wim8iRpMQiJHkSSfD7wivStuuph",
+   "case_count": 1,
+   "cases": [
+    "m_d2f031d73387"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "$wif"
+   ],
+   "verdicts": {
+    "m_d2f031d73387": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "Fn9n3ftUzjhcmoLwXbTqJdATzamCp3xPEu4LmLSS8ELr",
+   "case_count": 1,
+   "cases": [
+    "m_bd95541d260d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "ヤギ"
+   ],
+   "verdicts": {
+    "m_bd95541d260d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "G4DQ5HSKZDQ9KdFv1Pcxs6e4pr9gxDQiPcKKii2Z7561",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "GYaf9CfPjM2JXLGkSyMnfaQDFj7uej9EdK1kXkuS55NC",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "H65pDamch6Eo8fkT4XWVSzqra6nG38RhYCaZCc87hqx5",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "H9ukwfbFhqQF8wZNokPwe1ddT61HdDBoT5bXFvdD6f8D",
+   "case_count": 1,
+   "cases": [
+    "m_d54bf9a14eb4"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "bonk"
+   ],
+   "verdicts": {
+    "m_d54bf9a14eb4": "caution"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  },
+  {
+   "wallet": "HqTf4jNTsyKcjSB62vBRybgBPvqCPpCLNtA24yPkikWu",
+   "case_count": 1,
+   "cases": [
+    "m_0c961a12701d"
+   ],
+   "roles": [
+    "holder"
+   ],
+   "tokens": [
+    "kimchisol"
+   ],
+   "verdicts": {
+    "m_0c961a12701d": "rugged"
+   },
+   "likely_custodian": false,
+   "custodian_notes": []
+  }
+ ]
+}

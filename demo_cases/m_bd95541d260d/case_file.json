@@ -1,0 +1,407 @@
+{
+ "case_file": {
+  "mint": "FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+  "case_id": "m_bd95541d260d",
+  "retrieved_at": "2026-10-23T14:44:09+00:00",
+  "mode": "snapshot",
+  "captured_at": {
+   "first": "2026-10-23T03:32:30.855Z",
+   "last": "2026-10-23T03:32:46.703Z"
+  },
+  "summary": {
+   "mint": "FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+   "symbol": "ヤギ",
+   "name": "Nagi and Pokke",
+   "creator": "7RuGitVFXYZQ3Q3QEVSs14Jggv6a9Ky8AEthBENPqrCd",
+   "creator_balance": 0.0,
+   "score": 2718,
+   "score_normalised": 32,
+   "rugged": false,
+   "total_holders": 165,
+   "total_lp_providers": 0,
+   "total_market_liquidity": 2399.8216584067613,
+   "total_stable_liquidity": 282.5573341214316,
+   "price": 2.140513617601803e-06,
+   "mint_authority": null,
+   "freeze_authority": null,
+   "metadata_mutable": false,
+   "update_authority": "11111111111111111111111111111111",
+   "supply": 991661496371216.0,
+   "decimals": 6,
+   "graph_insiders_detected": 874,
+   "detected_at": "2026-10-22T05:16:38.240675439Z",
+   "deploy_platform": "unknown",
+   "launchpad": "Pump.Fun",
+   "transfer_fee_pct": 0.0,
+   "jup_verified": null,
+   "jup_strict": null,
+   "locker_scan_status": "none",
+   "token_program": "TokenzQdBNbLqP5VEhdkAS6EPFLC1PHnBqCXEpPxuEb",
+   "captured_at": "2026-10-23T03:32:34.500Z"
+  },
+  "pairs": [
+   {
+    "chain": "solana",
+    "dex": "pumpswap",
+    "pair_address": "9XQyVNcE5y4dYSFmTj7oFdHQHqqGZ7UhsW18A75Fw6NK",
+    "url": "https://dexscreener.com/solana/9xqyvnce5y4dysfmtj7ofdhqhqqgz7uhsw18a75fw6nk",
+    "base_address": "FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+    "symbol": "ヤギ",
+    "name": "Nagi and Pokke",
+    "quote_address": "So11111111111111111111111111111111111111112",
+    "quote_symbol": "SOL",
+    "price_usd": 2.137e-06,
+    "price_native": 2.047e-08,
+    "liquidity_usd": 2397.32,
+    "fdv": 2119.0,
+    "market_cap": 2119.0,
+    "volume_m5": 0.0,
+    "volume_h1": 0.0,
+    "volume_h6": 0.0,
+    "volume_24h": 1773404.09,
+    "price_change_m5": null,
+    "price_change_h1": null,
+    "price_change_h6": null,
+    "price_change_24h": -97.72,
+    "buys_h1": 0,
+    "sells_h1": 0,
+    "buys_24h": 14083,
+    "sells_24h": 8847,
+    "pair_created_at_ms": 1792646197000,
+    "captured_at": "2026-10-23T03:32:30.855Z"
+   },
+   {
+    "chain": "solana",
+    "dex": "pumpfun",
+    "pair_address": "DL9XKxzEifWsoCsefNfGFuJMfqZQRJgGSv5xsoCuGLTA",
+    "url": "https://dexscreener.com/solana/dl9xkxzeifwsocsefnfgfujmfqzqrjggsv5xsocuglta",
+    "base_address": "FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+    "symbol": "ヤギ",
+    "name": "Nagi and Pokke",
+    "quote_address": "So11111111111111111111111111111111111111112",
+    "quote_symbol": "SOL",
+    "price_usd": 3.07e-05,
+    "price_native": 2.922e-07,
+    "liquidity_usd": null,
+    "fdv": 30705.3,
+    "market_cap": 30705.3,
+    "volume_m5": 0.0,
+    "volume_h1": 0.0,
+    "volume_h6": 0.0,
+    "volume_24h": 5507.96,
+    "price_change_m5": null,
+    "price_change_h1": null,
+    "price_change_h6": null,
+    "price_change_24h": 912.0,
+    "buys_h1": 0,
+    "sells_h1": 0,
+    "buys_24h": 7,
+    "sells_24h": 0,
+    "pair_created_at_ms": 1792646197000,
+    "captured_at": "2026-10-23T03:32:30.855Z"
+   }
+  ],
+  "top_holders": [
+   {
+    "token_account": "H2HRSgQw2XyPtG3ktQRqhzjeZ1ifv7FZDZ5ZUV59385a",
+    "owner": "9XQyVNcE5y4dYSFmTj7oFdHQHqqGZ7UhsW18A75Fw6NK",
+    "pct": 99.74557394083186,
+    "ui_amount": 989138451.105711,
+    "insider": false,
+    "captured_at": "2026-10-23T03:32:37.473Z",
+    "label": "Pump Fun AMM",
+    "label_type": "AMM"
+   },
+   {
+    "token_account": "GJo1efTjjvUspTFTmHTuGX5MPSWsNTdcrMDR9YYCE79F",
+    "owner": "9UnZnrFJ1CXCmCorgGU9NvYkX5np1h4v4ympx3Nrdw3v",
+    "pct": 0.24568285983183782,
+    "ui_amount": 2436342.324136,
+    "insider": false,
+    "captured_at": "2026-10-23T03:32:37.473Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "DKGBe28uJXQSytZ2eF7qFkijTya5GV9NRBJqj7XwfgQD",
+    "owner": "Fn9n3ftUzjhcmoLwXbTqJdATzamCp3xPEu4LmLSS8ELr",
+    "pct": 8.055302307522226e-05,
+    "ui_amount": 798.813314,
+    "insider": false,
+    "captured_at": "2026-10-23T03:32:37.473Z",
+    "label": null,
+    "label_type": null
+   },
+   {
+    "token_account": "21YLYTruuGMjapfhNNmoBKEfazzdNayGoKShMcVSD93h",
+    "owner": "7RuGitVFXYZQ3Q3QEVSs14Jggv6a9Ky8AEthBENPqrCd",
+    "pct": 0.0,
+    "ui_amount": 0.0,
+    "insider": false,
+    "captured_at": "2026-10-23T03:32:37.473Z",
+    "label": "Creator",
+    "label_type": "CREATOR"
+   }
+  ],
+  "risks": [
+   {
+    "name": "Low Liquidity",
+    "level": "danger",
+    "score": 2717,
+    "description": "Low amount of liquidity in the token pool",
+    "value": "$282.56",
+    "captured_at": "2026-10-23T03:32:41.406Z"
+   }
+  ],
+  "insider_networks": [
+   {
+    "network_id": "knotty-brick-bat",
+    "type": "transfer",
+    "size": 471,
+    "active_accounts": 471,
+    "token_amount": 688464448712859.0,
+    "current_holding": 688464448712859.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   },
+   {
+    "network_id": "icy-yellow-condor",
+    "type": "transfer",
+    "size": 335,
+    "active_accounts": 335,
+    "token_amount": 7010207628058.0,
+    "current_holding": 7010207628058.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   },
+   {
+    "network_id": "obvious-beige-quail",
+    "type": "transfer",
+    "size": 36,
+    "active_accounts": 36,
+    "token_amount": 88031753225582.0,
+    "current_holding": 88031753225582.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   },
+   {
+    "network_id": "juicy-heather-opossum",
+    "type": "transfer",
+    "size": 7,
+    "active_accounts": 7,
+    "token_amount": 7425314902447.0,
+    "current_holding": 7425314902447.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   },
+   {
+    "network_id": "useful-zircon-parrot",
+    "type": "transfer",
+    "size": 5,
+    "active_accounts": 5,
+    "token_amount": 7981175503032.0,
+    "current_holding": 7981175503032.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   },
+   {
+    "network_id": "unruly-ginger-beaver",
+    "type": "transfer",
+    "size": 4,
+    "active_accounts": 4,
+    "token_amount": 16010572039410.0,
+    "current_holding": 16010572039410.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   },
+   {
+    "network_id": "jumpy-mustard-gazelle",
+    "type": "transfer",
+    "size": 4,
+    "active_accounts": 4,
+    "token_amount": 10472930042395.0,
+    "current_holding": 10472930042395.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   },
+   {
+    "network_id": "mighty-steel-skunk",
+    "type": "transfer",
+    "size": 4,
+    "active_accounts": 4,
+    "token_amount": 9884212212361.0,
+    "current_holding": 9884212212361.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   },
+   {
+    "network_id": "warm-beige-possum",
+    "type": "transfer",
+    "size": 4,
+    "active_accounts": 4,
+    "token_amount": 8926657714626.0,
+    "current_holding": 8926657714626.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   },
+   {
+    "network_id": "anxious-cobalt-emu",
+    "type": "transfer",
+    "size": 4,
+    "active_accounts": 4,
+    "token_amount": 3909717218408.0,
+    "current_holding": 3909717218408.0,
+    "captured_at": "2026-10-23T03:32:43.815Z"
+   }
+  ],
+  "markets": [
+   {
+    "market": "9XQyVNcE5y4dYSFmTj7oFdHQHqqGZ7UhsW18A75Fw6NK",
+    "market_type": "pump_fun_amm",
+    "mint_a": "FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+    "mint_b": "So11111111111111111111111111111111111111112",
+    "base_usd": 2117.2643242853296,
+    "quote_usd": 282.4341935494261,
+    "lp_locked_pct": 100.0,
+    "lp_locked_usd": 2399.698517834756,
+    "captured_at": "2026-10-23T03:32:46.703Z"
+   }
+  ],
+  "lockers": [],
+  "sources": [
+   {
+    "kind": "holders",
+    "view": "casefile.m_bd95541d260d_holders",
+    "read_from": "casefile_snap.m_bd95541d260d_holders_labelled_snap",
+    "snapshot_sql": "SELECT h.*, COALESCE(ko.name, kt.name) AS label, COALESCE(ko.type, kt.type) AS label_type FROM casefile_snap.m_bd95541d260d_holders_snap h LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_bd95541d260d_known_accounts_snap GROUP BY address) ko ON ko.address = h.owner LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_bd95541d260d_known_accounts_snap GROUP BY address) kt ON kt.address = h.token_account",
+    "api": "https://api.rugcheck.xyz/v1/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump/report",
+    "via": "rugcheck_rest.m_bd95541d260d_rug"
+   },
+   {
+    "kind": "insiders",
+    "view": "casefile.m_bd95541d260d_insiders",
+    "read_from": "casefile_snap.m_bd95541d260d_insiders_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_insiders",
+    "api": "https://api.rugcheck.xyz/v1/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump/report",
+    "via": "rugcheck_rest.m_bd95541d260d_rug"
+   },
+   {
+    "kind": "known_accounts",
+    "view": "casefile.m_bd95541d260d_known_accounts",
+    "read_from": "casefile.m_bd95541d260d_known_accounts",
+    "snapshot_sql": null,
+    "api": "https://api.rugcheck.xyz/v1/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump/report",
+    "via": "rugcheck_rest.m_bd95541d260d_rug"
+   },
+   {
+    "kind": "markets",
+    "view": "casefile.m_bd95541d260d_markets",
+    "read_from": "casefile_snap.m_bd95541d260d_markets_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_markets",
+    "api": "https://api.rugcheck.xyz/v1/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump/report",
+    "via": "rugcheck_rest.m_bd95541d260d_rug"
+   },
+   {
+    "kind": "pairs",
+    "view": "casefile.m_bd95541d260d_pairs",
+    "read_from": "casefile_snap.m_bd95541d260d_pairs_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_pairs",
+    "api": "https://api.dexscreener.com/latest/dex/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+    "via": "dexscreener_rest.m_bd95541d260d_dex"
+   },
+   {
+    "kind": "risks",
+    "view": "casefile.m_bd95541d260d_risks",
+    "read_from": "casefile_snap.m_bd95541d260d_risks_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_risks",
+    "api": "https://api.rugcheck.xyz/v1/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump/report",
+    "via": "rugcheck_rest.m_bd95541d260d_rug"
+   },
+   {
+    "kind": "summary",
+    "view": "casefile.m_bd95541d260d_summary",
+    "read_from": "casefile_snap.m_bd95541d260d_summary_snap",
+    "snapshot_sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_summary",
+    "api": "https://api.rugcheck.xyz/v1/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump/report",
+    "via": "rugcheck_rest.m_bd95541d260d_rug"
+   }
+  ],
+  "errors": {}
+ },
+ "computed": {
+  "worst_price_change_pct": {
+   "value": -97.72,
+   "formula": "lowest price_change_h1/h6/24h across own pairs with >= 10% of the top pair's liquidity"
+  },
+  "own_liquidity_usd": {
+   "value": 2397.32,
+   "formula": "sum liquidity_usd of own pairs"
+  },
+  "top_pair_liquidity_usd": {
+   "value": 2397.32,
+   "formula": "liquidity_usd of the top own pair"
+  },
+  "top_pair_fdv_usd": {
+   "value": 2119.0,
+   "formula": "fdv of the top own pair"
+  },
+  "volume_to_liquidity_24h": {
+   "value": 739.7,
+   "formula": "top own pair volume_24h / liquidity_usd"
+  },
+  "insider_networks_supply_pct": {
+   "value": 85.52,
+   "formula": "100 * sum(insiders.token_amount) / summary.supply"
+  },
+  "largest_insider_network_supply_pct": {
+   "value": 69.43,
+   "formula": "100 * max(insiders.token_amount) / summary.supply"
+  },
+  "danger_risks": {
+   "value": [
+    "Low Liquidity"
+   ],
+   "formula": "names of risks with level danger"
+  },
+  "pair_age_days": {
+   "value": 1.4,
+   "formula": "now - oldest own pair pair_created_at_ms"
+  },
+  "established": {
+   "value": false,
+   "formula": "pair_age_days > 180 AND summary.total_holders > 100000"
+  },
+  "top10_pct_all": {
+   "value": 99.99,
+   "formula": "sum holders.pct of the top 10 rows"
+  },
+  "top10_pct_excluding_pools_lockers": {
+   "value": 0.25,
+   "formula": "top 10 holders.pct minus rows labelled AMM or LOCKER"
+  },
+  "top10_pct_excluding_pools_lockers_custodians": {
+   "value": 0.25,
+   "formula": "as above, also minus wallets H-MEM marks likely custodian"
+  },
+  "insider_flagged_holders": {
+   "value": 0,
+   "formula": "count holders.insider = true"
+  },
+  "buy_sell_ratio_24h": {
+   "value": 1.59,
+   "formula": "top own pair buys_24h / sells_24h"
+  },
+  "liquidity_to_fdv": {
+   "value": 1.1313,
+   "formula": "top own pair liquidity_usd / fdv"
+  },
+  "own_pair_count": {
+   "value": 2,
+   "formula": "DexScreener pairs whose base token is this mint"
+  }
+ },
+ "snapshot_tables": {
+  "summary": "casefile_snap.m_bd95541d260d_summary_snap",
+  "pairs": "casefile_snap.m_bd95541d260d_pairs_snap",
+  "markets": "casefile_snap.m_bd95541d260d_markets_snap",
+  "risks": "casefile_snap.m_bd95541d260d_risks_snap",
+  "insiders": "casefile_snap.m_bd95541d260d_insiders_snap",
+  "holders": "casefile_snap.m_bd95541d260d_holders_labelled_snap"
+ },
+ "source_urls": {
+  "dexscreener": "https://api.dexscreener.com/latest/dex/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+  "rugcheck": "https://api.rugcheck.xyz/v1/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump/report"
+ },
+ "established": false
+}

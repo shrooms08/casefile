@@ -96,3 +96,14 @@ Every sentence in "why" must restate one accepted claim and name its claim_id (o
 claim, under 30 words). Do not add facts. one_line is under 25 words.
 Shape: {{"label": "...", "one_line": "...", "why": [{{"claim_id": "H1", "sentence": "..."}}],
 "what_would_change_my_mind": "..."}}"""
+
+
+def _version() -> str:
+    import hashlib
+    text = "".join(v if isinstance(v, str) else repr(v) for k, v in sorted(globals().items())
+                   if k.isupper() and k != "AGENT_VERSION")
+    return hashlib.sha1(text.encode()).hexdigest()[:10]
+
+
+# Fingerprint of every prompt and rule above; recorded on each run's start event.
+AGENT_VERSION = _version()

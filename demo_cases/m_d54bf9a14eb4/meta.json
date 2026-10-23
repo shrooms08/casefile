@@ -1,0 +1,28 @@
+{
+ "case_id": "m_d54bf9a14eb4",
+ "run_id": "cca738afdd",
+ "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+ "symbol": "Bonk",
+ "rugcheck_rugged": false,
+ "label": "CAUTION",
+ "one_line": "Only weak signal: mutable metadata; ample liquidity, no top-10 insiders, no mint/freeze authority.",
+ "duration_s": 348.0,
+ "llm_calls": 10,
+ "models_used": [
+  "nvidia/nemotron-3.5-lightning-30b-a3b",
+  "nvidia/nemotron-3.5-super-vl-120b-a12b"
+ ],
+ "recorded_at": "2026-10-23T12:44:47.020+00:00",
+ "agent_version": null,
+ "events": 22,
+ "memory_stored": {
+  "created": 0,
+  "updated": 21,
+  "unchanged": 0,
+  "derived": 0,
+  "derived_ids": [],
+  "established": true
+ },
+ "selection": "8 runs; 7 with a verdict; 2 made with the current prompts; chose cca738afdd (started 2026-10-23T12:44:47Z): verdict, 0 skeptic failures, 0 retries; only candidate",
+ "redactions": 0
+}

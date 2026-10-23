@@ -248,9 +248,11 @@ def _meterless_headers(resp: requests.Response) -> dict[str, str]:
             if k.lower().startswith(("meterless", "x-meterless"))}
 
 
-def _persist(case_id: str | None, record: dict[str, Any]) -> None:
+def _persist(case_id: str | None, record: dict[str, Any], run_id: str | None = None) -> None:
     safe = re.sub(r"[^A-Za-z0-9_.-]", "_", case_id or "_adhoc")
     d = RUNS_DIR / safe
+    if run_id:
+        d = d / re.sub(r"[^A-Za-z0-9_.-]", "_", run_id)
     d.mkdir(parents=True, exist_ok=True)
     with (d / "receipts.jsonl").open("a") as f:
         f.write(json.dumps(record, default=str) + "\n")
@@ -307,6 +309,7 @@ def chat(
     max_tokens: int | None = None,
     extra_body: dict[str, Any] | None = None,
     stream: bool = STREAM_DEFAULT,
+    run_id: str | None = None,
 ) -> ChatResult:
     """One chat completion through Meterless. A plain string becomes one user message.
     reasoning_effort ("low" / "medium" / "high") is passed through to models that support it.
@@ -391,6 +394,7 @@ def chat(
     record = {
         "call_id": call_id,
         "case_id": case_id,
+        "run_id": run_id,
         "at": started.isoformat(timespec="milliseconds"),
         "provider": PROVIDER_ID,
         "app": app,
@@ -413,5 +417,5 @@ def chat(
         "response": data,
     }
     result.receipt = record
-    _persist(case_id, record)
+    _persist(case_id, record, run_id)
     return result

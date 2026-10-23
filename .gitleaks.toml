@@ -1,0 +1,9 @@
+# Default gitleaks rules, plus one allowlist: public Solana token-account addresses in exported
+# case files (the JSON key "token_account" trips generic-api-key). Nothing else is allowed.
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Solana token account addresses (public on-chain data)"
+regexTarget = "match"
+regexes = ['''token_account"\s*:\s*"[1-9A-HJ-NP-Za-km-z]{32,44}"''']

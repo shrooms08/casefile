@@ -19,7 +19,7 @@ from casefile import memory
 from casefile.agents import prompts
 from casefile.agents.evidence import computed_fields, expand_evidence, slices, table_columns
 from casefile.agents.llmjson import StepFailed, call_json
-from casefile.agents.state import CaseState, Trace
+from casefile.agents.state import CaseState, Trace, run_dir
 from casefile.agents.tools import query_case
 from casefile.case_file import get_case_file
 from casefile.sources import _load_registry
@@ -193,6 +193,8 @@ def _planner(state: CaseState, trace: Trace) -> None:
 
 def _investigator(state: CaseState, trace: Trace, agent: str) -> list[dict]:
     qs = [q for q in state.questions if q["investigator"] == agent]
+    trace.log("investigator_started", agent, {"questions": qs},
+              input_summary=f"{len(qs)} question(s) from the planner")
     sl = slices(state)[agent]
     system = (f"You are the {agent} investigator on a Solana token case; you examine "
               f"{prompts.INVESTIGATOR[agent]}. Claim ids start with {PREFIX[agent]}. " + prompts.INVESTIGATOR_RULES)
@@ -368,17 +370,30 @@ def _store(state: CaseState, trace: Trace, label: str | None = None, step: str =
 
 # --- public -----------------------------------------------------------------------------
 
-def investigate(mint: str, on_event: Callable[[dict], None] | None = None) -> CaseState:
+def _write_json(state: CaseState, name: str, data: Any) -> None:
+    d = run_dir(state.case_id, state.run_id)
+    d.mkdir(parents=True, exist_ok=True)
+    (d / name).write_text(json.dumps(data, default=str, ensure_ascii=False, indent=1) + "\n")
+
+
+def investigate(mint: str, on_event: Callable[[dict], None] | None = None,
+                run_id: str | None = None) -> CaseState:
     state = _build_state(mint)
+    if run_id:
+        state.run_id = run_id
     trace = Trace(state, on_event)
     trace.log("start", "casefile", {"mint": state.mint, "symbol": state.symbol,
-                                    "snapshot_tables": state.snapshot_tables},
+                                    "snapshot_tables": state.snapshot_tables,
+                                    "agent_version": prompts.AGENT_VERSION},
               input_summary="case opened from CASEFILE_SNAP snapshots")
     state.established = bool(computed_fields(state.case_file, {})["established"]["value"])
     _store(state, trace, label="PENDING", step="memory_observe")
     _recall(state, trace)
     state.computed = computed_fields(state.case_file, state.memories)
     trace.log("computed", "casefile", state.computed, input_summary="arithmetic over snapshot fields")
+    _write_json(state, "case_file.json", {"case_file": state.case_file, "computed": state.computed,
+                                          "snapshot_tables": state.snapshot_tables, "source_urls": state.source_urls,
+                                          "established": state.established})
 
     _planner(state, trace)
     # Pipelined: each investigator's claims go to the skeptic as soon as they exist, then that
@@ -394,8 +409,11 @@ def investigate(mint: str, on_event: Callable[[dict], None] | None = None) -> Ca
     state.verdict = _verdict(state, trace)
     trace.log("final", "verdict", state.verdict, input_summary="verdict from accepted claims only")
     _store(state, trace)
-    trace.log("done", "casefile", {"seconds": round(time.time() - state.started, 1), "llm_calls": state.llm_calls,
-                                   "accepted": len(state.accepted()),
-                                   "rejected": len({d["id"] for d in state.dropped}),
-                                   "models": sorted(state.models)})
+    stats = {"seconds": round(time.time() - state.started, 1), "llm_calls": state.llm_calls,
+             "accepted": len(state.accepted()), "rejected": len({d["id"] for d in state.dropped}),
+             "models": sorted(state.models)}
+    _write_json(state, "verdict.json", {"run_id": state.run_id, "case_id": state.case_id, "mint": state.mint,
+                                        "symbol": state.symbol, "verdict": state.verdict, **stats,
+                                        "accepted_claims": state.accepted(), "dropped": state.dropped})
+    trace.log("done", "casefile", stats)
     return state

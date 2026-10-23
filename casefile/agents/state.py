@@ -1,10 +1,12 @@
 """Shared state for one investigation, and the trace every step writes.
 
-Trace: runs/<case_id>/trace.jsonl, one JSON object per line:
+Each investigation is its own run: runs/<case_id>/<run_id>/ holds trace.jsonl (raw events below),
+receipts.jsonl (every LLM receipt), case_file.json (what the agents saw) and verdict.json.
+Raw trace lines:
   {ts, run_id, seq, step, agent, model, receipt_id, sql, input_summary, output}
 `step` says what happened (plan, investigate, query, claims, review, fix, re_review,
-verdict, memory_recall, memory_store, ...). The file is append-only; each investigation
-has its own run_id, so several runs of one case can share the file.
+verdict, memory_recall, memory_store, ...). The UI reads the normalized form produced by
+casefile/trace_schema.py (docs/TRACE_SCHEMA.md).
 """
 
 from __future__ import annotations
@@ -19,6 +21,10 @@ from pathlib import Path
 from typing import Any, Callable
 
 from casefile.llm import RUNS_DIR
+
+
+def run_dir(case_id: str, run_id: str) -> Path:
+    return RUNS_DIR / case_id / run_id
 
 
 @dataclass
@@ -52,7 +58,7 @@ class Trace:
 
     def __init__(self, state: CaseState, on_event: Callable[[dict[str, Any]], None] | None = None):
         self.state = state
-        self.path = RUNS_DIR / state.case_id / "trace.jsonl"
+        self.path = run_dir(state.case_id, state.run_id) / "trace.jsonl"
         self.path.parent.mkdir(parents=True, exist_ok=True)
         self.on_event = on_event
         self._lock = threading.Lock()
