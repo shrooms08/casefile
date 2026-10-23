@@ -81,7 +81,7 @@ def _snapshot_tables(case: Case) -> dict[str, dict] | None:
 def _read_snapshots(snaps: dict[str, dict]) -> dict[str, list[dict[str, Any]]]:
     """All snapshot tables in ONE Zetaris query (the local driver runs queries one at a time,
     so one round trip beats seven parallel ones)."""
-    parts = [f"SELECT '{k}' AS k, to_json(struct(*)) AS j FROM {v['table']}"
+    parts = [f"SELECT '{k}' AS k, to_json(struct(*), map('ignoreNullFields', 'false')) AS j FROM {v['table']}"
              for k, v in snaps.items() if v["rows"]]
     out: dict[str, list[dict[str, Any]]] = {k: [] for k in snaps}
     if not parts:

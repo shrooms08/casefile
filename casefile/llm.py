@@ -43,6 +43,8 @@ PROVIDER_NAME = "Meterless Runtime"
 DEFAULT_BASE_URL = "http://127.0.0.1:8088/v1"
 TOKEN_KEY = "meterless_runtime_token"
 APP_ID = "casefile"
+# Nightshift binds one routing profile per meterless-app id, so each role gets its own app.
+ROLE_APPS = {"fast": "casefile-fast", "deep": "casefile-deep"}
 TIMEOUT_S = 180
 REJECTED_TOKENS = {"rt-local"}
 RUNS_DIR = ROOT / "runs"
@@ -117,8 +119,8 @@ def _base_url() -> str:
     return normalise_base_url(os.environ.get("METERLESS_BASE_URL"))
 
 
-def _headers(token: str, chat: bool = False) -> dict[str, str]:
-    h = {"Authorization": f"Bearer {token}", "meterless-app": APP_ID}
+def _headers(token: str, chat: bool = False, app: str = APP_ID) -> dict[str, str]:
+    h = {"Authorization": f"Bearer {token}", "meterless-app": app}
     if chat:
         h["meterless-scope"] = "user"
     return h
@@ -254,47 +256,106 @@ def _persist(case_id: str | None, record: dict[str, Any]) -> None:
         f.write(json.dumps(record, default=str) + "\n")
 
 
+STREAM_DEFAULT = True
+
+
+def _read_stream(resp: requests.Response, token: str) -> dict[str, Any]:
+    """Fold an OpenAI SSE stream back into the non-streaming response shape."""
+    text, final, model = [], {}, None
+    for raw in resp.iter_lines(decode_unicode=True):
+        if not raw or raw.startswith(":") or not raw.startswith("data:"):
+            continue
+        payload = raw[5:].strip()
+        if payload == "[DONE]":
+            break
+        try:
+            chunk = json.loads(payload)
+        except ValueError:
+            continue
+        if chunk.get("error"):
+            err = chunk["error"]
+            code = 499 if err.get("code") == "request_aborted" else 502
+            raise MeterlessError(f"Meterless stream error: {_scrub(json.dumps(chunk), token)}", http_status=code)
+        model = chunk.get("model") or model
+        for ch in chunk.get("choices") or []:
+            piece = (ch.get("delta") or {}).get("content")
+            if piece:
+                text.append(piece)
+        if chunk.get("meterless"):
+            final = chunk["meterless"]
+    rcpt = final.get("receipt") or {}
+    u = rcpt.get("usage") or {}
+    meta = {**rcpt, **{k: v for k, v in final.items() if k != "receipt"}, "receipt": rcpt}
+    return {
+        "object": "chat.completion",
+        "model": final.get("routed_model") or model,
+        "choices": [{"index": 0, "message": {"role": "assistant", "content": "".join(text)}}],
+        "usage": {"prompt_tokens": u.get("input_tokens"), "completion_tokens": u.get("output_tokens"),
+                  "total_tokens": u.get("total_tokens")} if u else {},
+        "meterless": meta,
+        "meterless_cross_check": final.get("cross_check") or rcpt.get("cross_check"),
+        "streamed": True,
+    }
+
+
 def chat(
     messages: list[dict[str, Any]] | str,
     role: str = "fast",
     json_mode: bool = False,
     case_id: str | None = None,
     reasoning_effort: str | None = None,
+    max_tokens: int | None = None,
+    extra_body: dict[str, Any] | None = None,
+    stream: bool = STREAM_DEFAULT,
 ) -> ChatResult:
     """One chat completion through Meterless. A plain string becomes one user message.
-    reasoning_effort ("low" / "medium" / "high") is passed through to models that support it."""
+    reasoning_effort ("low" / "medium" / "high") is passed through to models that support it.
+    stream=True (default) avoids Nightshift's 45 s provider-header deadline on long answers;
+    the receipt comes back in the final SSE chunk (meterless-trace: on)."""
     if isinstance(messages, str):
         messages = [{"role": "user", "content": messages}]
     token = _token()
     base = _base_url()
     model = model_for_role(role)
+    app = ROLE_APPS[role]
     body: dict[str, Any] = {"model": model, "messages": messages}
     if json_mode:
         body["response_format"] = {"type": "json_object"}
     if reasoning_effort:
         body["reasoning_effort"] = reasoning_effort
+    if max_tokens:
+        body["max_tokens"] = max_tokens
+    if extra_body:
+        body.update(extra_body)
+    if stream:
+        body["stream"] = True
+    headers = _headers(token, chat=True, app=app)
+    if stream:
+        headers["meterless-trace"] = "on"
 
     call_id = str(uuid.uuid4())
     started = datetime.now(timezone.utc)
     t0 = time.perf_counter()
     try:
-        resp = requests.post(f"{base}/chat/completions", json=body,
-                             headers=_headers(token, chat=True), timeout=TIMEOUT_S)
+        resp = requests.post(f"{base}/chat/completions", json=body, headers=headers,
+                             timeout=(10, TIMEOUT_S), stream=stream)
+        if resp.status_code in (401, 403):
+            raise MeterlessError("Meterless rejected the runtime token (401/403).",
+                                 status="unauthorized", http_status=resp.status_code)
+        if resp.status_code != 200:
+            raise MeterlessError(f"Meterless HTTP {resp.status_code}: {_scrub(resp.text, token)}",
+                                 http_status=resp.status_code)
+        if stream:
+            data = _read_stream(resp, token)
+        else:
+            try:
+                data = resp.json()
+            except ValueError:
+                raise MeterlessError(f"Meterless returned non-JSON: {_scrub(resp.text, token)}") from None
     except requests.RequestException as e:
         raise MeterlessError(f"Cannot reach Meterless at {base}: {type(e).__name__}",
                              status="offline") from None
     latency_ms = int((time.perf_counter() - t0) * 1000)
-
-    if resp.status_code in (401, 403):
-        raise MeterlessError("Meterless rejected the runtime token (401/403).",
-                             status="unauthorized", http_status=resp.status_code)
-    if resp.status_code != 200:
-        raise MeterlessError(f"Meterless HTTP {resp.status_code}: {_scrub(resp.text, token)}",
-                             http_status=resp.status_code)
-    try:
-        data = resp.json()
-    except ValueError:
-        raise MeterlessError(f"Meterless returned non-JSON: {_scrub(resp.text, token)}") from None
 
     mheaders = _meterless_headers(resp)
     meta = data.get("meterless") or {}
@@ -312,7 +373,7 @@ def chat(
     if routed and routed != model and not model.startswith("meterless/"):
         # A bound app (Nightshift > Apps) routes by its pressed mode, not the client's model.
         note = (f"requested {model} but Nightshift routed to {routed} "
-                f"(app '{APP_ID}' is bound to {bound_mode} in Nightshift > Apps)")
+                f"(app '{app}' is bound to {bound_mode} in Nightshift > Apps)")
         log.warning(note)
 
     result = ChatResult(
@@ -332,11 +393,14 @@ def chat(
         "case_id": case_id,
         "at": started.isoformat(timespec="milliseconds"),
         "provider": PROVIDER_ID,
+        "app": app,
         "base_url": base,
         "role": role,
         "requested_model": model,
         "json_mode": json_mode,
         "reasoning_effort": reasoning_effort,
+        "max_tokens": max_tokens,
+        "extra_body": extra_body,
         "latency_ms": latency_ms,
         "routed_model": result.routed_model,
         "receipt_id": result.receipt_id,

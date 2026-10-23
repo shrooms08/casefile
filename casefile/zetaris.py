@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import os
 import re
+import threading
 import uuid
 from pathlib import Path
 from typing import Any
@@ -26,6 +27,10 @@ load_dotenv(ROOT / ".env")
 DEFAULT_REST_URL = "http://localhost:8888/api/v1.0"
 DEFAULT_LIMIT = 1000
 TIMEOUT_S = 300
+
+# The local Zetaris driver runs one query at a time and wedged when sent parallel exports,
+# so every call in this process goes through this lock.
+ZETARIS_LOCK = threading.Lock()
 
 
 class ZetarisError(RuntimeError):
@@ -98,6 +103,11 @@ def run_sql(statement: str, limit: int = DEFAULT_LIMIT) -> list[dict[str, Any]]:
         raise ZetarisError("run_sql takes exactly one statement with no semicolons.")
 
     base, org, key = _config()
+    with ZETARIS_LOCK:
+        return _post(base, org, key, sql, limit)
+
+
+def _post(base: str, org: str, key: str, sql: str, limit: int) -> list[dict[str, Any]]:
     try:
         resp = requests.post(
             f"{base}/sql-editor/sqls/run",

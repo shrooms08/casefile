@@ -1,0 +1,10 @@
+{
+  "name": "casefile-hmem",
+  "private": true,
+  "description": "TypeScript H-MEM memory engine used by Casefile (casefile/hmem).",
+  "license": "Apache-2.0",
+  "type": "module",
+  "devDependencies": {
+    "tsx": "4.23.0"
+  }
+}
