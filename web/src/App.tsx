@@ -21,6 +21,8 @@ const AppCtx = createContext<Ctx>(null as unknown as Ctx);
 export const useApp = () => useContext(AppCtx);
 
 export const isLive = (h: Health | null) => h?.mode === "live";
+export const isHosted = (h: Health | null) => h?.mode === "static";
+export const RUN_IT_LIVE = "https://github.com/shrooms08/casefile#run-it-live";
 
 function TopBar({ right }: { right: string }) {
   return (
@@ -54,7 +56,7 @@ function Nav() {
       </button>
       <div data-testid="mode-note" style={sx("display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#9a9384")}>
         <span style={sx(`width:7px;height:7px;border-radius:50%;background:${live ? "#5f9a6b" : "#d9a24a"}`)}></span>
-        {health == null ? "Checking the desk…" : live ? "Live stack connected" : "Replay-only mode"}
+        {health == null ? "Checking the desk…" : live ? "Live stack connected" : health.mode === "static" ? "Hosted replay" : "Replay-only mode"}
       </div>
     </nav>
   );

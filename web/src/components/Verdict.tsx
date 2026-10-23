@@ -5,7 +5,7 @@ import type { CaseDetail, Evidence } from "../data";
 import { useApp } from "../App";
 import { sx } from "../lib/sx";
 import { ROT, date, disagrees, duration, host, labelColor, labelText, modelShort, shortAddr, value } from "../lib/format";
-import { Loading, RugcheckStrip } from "./common";
+import { Loading, RugcheckStrip, copyText } from "./common";
 
 interface Slip { id: string; table: string; field: string; value: string; source: string; url: string | null }
 
@@ -46,7 +46,7 @@ export default function VerdictPage() {
   const [hover, setHover] = useState<{ w: number; e: string } | null>(null);
   const [pinned, setPinned] = useState<{ w: number; e: string } | null>(null);
   const [line, setLine] = useState<{ d: string; x1: number; y1: number; x2: number; y2: number } | null>(null);
-  const [shared, setShared] = useState(false);
+  const [shared, setShared] = useState<string | null>(null);
   const root = useRef<HTMLDivElement>(null);
 
   useEffect(() => { setLastCase(caseId); setDetail(null); setErr(null); data.caseDetail(caseId).then(setDetail).catch((e) => setErr(String(e.message || e))); }, [caseId]);
@@ -91,7 +91,7 @@ export default function VerdictPage() {
           </div>
           <div style={sx("display:flex;gap:8px;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px")}>
             <button onClick={() => nav(`/case/${caseId}`)} style={sx("padding:9px 14px;background:#e8e2d4;color:#131210;border:0;cursor:pointer")}>Watch the investigation</button>
-            <button onClick={() => { navigator.clipboard?.writeText(`${location.origin}/case/${caseId}/verdict`).catch(() => {}); setShared(true); setTimeout(() => setShared(false), 1400); }} style={sx("padding:9px 14px;background:none;color:#e8e2d4;border:1px solid #4a463f;cursor:pointer")}>{shared ? "Link copied" : "Copy share link"}</button>
+            <button data-testid="share" onClick={async () => { const ok = await copyText(window.location.href); setShared(ok ? "Link copied" : window.location.href); setTimeout(() => setShared(null), ok ? 1400 : 6000); }} style={sx("padding:9px 14px;background:none;color:#e8e2d4;border:1px solid #4a463f;cursor:pointer;max-width:100%;overflow-wrap:anywhere")}>{shared ?? "Copy share link"}</button>
           </div>
         </div>
       </div>

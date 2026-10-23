@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { BusyError, data } from "../data";
-import { isLive, useApp } from "../App";
+import { RUN_IT_LIVE, isLive, useApp } from "../App";
 import { sx } from "../lib/sx";
 import { BLUE, OCH_TAB, RED, RED_TAB, ROT, date, disagrees, duration, labelColor, labelTab, labelText, shortAddr, today } from "../lib/format";
 import { RugcheckStrip } from "./common";
@@ -45,7 +45,7 @@ function NewCase() {
           style={sx(`flex:0 0 auto;padding:14px 26px;background:#1a1814;color:#efe9dc;border:0;font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:.06em;cursor:${live ? "pointer" : "not-allowed"};opacity:${live ? "1" : ".45"}`)}>
           {sending ? "Opening…" : "Open case"}</button>
       </form>
-      {!live && <div style={sx("font-size:16px;font-style:italic;color:#5e574b")}>Live investigations need the local stack. Watch a recorded case below.</div>}
+      {!live && <div data-testid="live-note" style={sx("font-size:16px;font-style:italic;color:#5e574b")}>Live investigations need the local stack (<a href={RUN_IT_LIVE} target="_blank" rel="noreferrer" style={sx("color:#5e574b")}>run it live</a>). Watch a recorded case below.</div>}
       {busy && <div role="alert" style={sx("font-size:16px;font-style:italic;color:#8b1e17")}>Another case is being investigated. <Link to={`/case/${busy.case_id}?run=${busy.run_id}&live=1`} style={sx("color:#8b1e17")}>Follow it on the case board</Link>.</div>}
       {err && <div role="alert" style={sx("font-size:16px;font-style:italic;color:#8b1e17")}>{err}</div>}
     </div>

@@ -1,6 +1,7 @@
 // UI check against the static build (no backend). Run from the repo root:
-//   cd web && npm run build:static && cd .. && node scripts/ui_check.mjs
-// Serves web/dist-static itself (SPA fallback), then with Playwright (preinstalled Chromium):
+//   cd web && npm run build:static && cd .. && node scripts/ui_check.mjs            (serves web/dist itself)
+//   node scripts/ui_check.mjs --url http://localhost:4173                         (e.g. against `vite preview`)
+// With Playwright (preinstalled Chromium):
 //   - opens /, each of the 4 cases (replay at 16x to the verdict), each verdict page, /memory
 //   - fails on console errors, on "TJ3" / "CF_1" / any mock id from the design export
 //   - checks the ヤギ verdict shows exactly the why-lines in its verdict.json
@@ -14,7 +15,9 @@ import { fileURLToPath } from "node:url";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const require = createRequire(join(ROOT, "web", "package.json"));
 const { chromium } = require("playwright");
-const DIST = join(ROOT, "web", "dist-static");
+const DIST = join(ROOT, "web", "dist");
+const urlArg = process.argv.indexOf("--url");
+const EXTERNAL = urlArg > 0 ? process.argv[urlArg + 1].replace(/\/$/, "") : null;
 const SHOTS = join(ROOT, "web", "screenshots");
 const CASES = ["m_bd95541d260d", "m_0c961a12701d", "m_d54bf9a14eb4", "m_d2f031d73387"];
 const YAGI = "m_bd95541d260d";
@@ -24,8 +27,8 @@ const MOCK_RECEIPT = /\brcpt_[0-9a-f]{6}\b/;
 const TYPES = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json",
   ".woff2": "font/woff2", ".png": "image/png", ".svg": "image/svg+xml", ".jsonl": "application/x-ndjson" };
 
-if (!existsSync(join(DIST, "index.html"))) {
-  console.error("web/dist-static is missing: run `cd web && npm run build:static` first");
+if (!EXTERNAL && !existsSync(join(DIST, "index.html"))) {
+  console.error("web/dist is missing: run `cd web && npm run build:static` first");
   process.exit(2);
 }
 mkdirSync(SHOTS, { recursive: true });
@@ -37,8 +40,9 @@ const server = createServer((req, res) => {
   res.writeHead(200, { "content-type": TYPES[extname(file)] || "application/octet-stream" });
   res.end(readFileSync(file));
 });
-await new Promise((r) => server.listen(0, "127.0.0.1", r));
-const BASE = `http://127.0.0.1:${server.address().port}`;
+if (!EXTERNAL) await new Promise((r) => server.listen(0, "127.0.0.1", r));
+const BASE = EXTERNAL ?? `http://127.0.0.1:${server.address().port}`;
+console.log(`UI check against ${BASE}`);
 
 const failures = [];
 const fail = (m) => { failures.push(m); console.log("  FAIL " + m); };
@@ -70,8 +74,12 @@ async function run(width) {
   await page.waitForSelector("[data-case]");
   const shelf = await page.$$eval("[data-case]", (els) => els.map((e) => e.getAttribute("data-case")));
   if (CASES.every((c) => shelf.includes(c))) ok(`shelf lists ${shelf.length} cases`); else fail(`shelf cases ${shelf}`);
-  const mode = await page.textContent("[data-testid=mode-note]");
-  if (/Replay-only/.test(mode)) ok("mode note: replay-only"); else fail(`mode note: ${mode}`);
+  await page.waitForFunction(() => !/Checking/.test(document.querySelector("[data-testid=mode-note]")?.textContent || "Checking"));
+  const mode = (await page.textContent("[data-testid=mode-note]")).trim();
+  if (mode === "Hosted replay") ok("mode note: Hosted replay"); else fail(`mode note: "${mode}"`);
+  const liveHref = await page.getAttribute("[data-testid=live-note] a", "href");
+  if (liveHref === "https://github.com/shrooms08/casefile#run-it-live") ok("disabled note links to the README run-it-live section");
+  else fail(`live note link: ${liveHref}`);
   if (await page.isDisabled("#mint")) ok("new-case input disabled in static mode"); else fail("input enabled in static mode");
   const strip = await page.$$eval("[data-testid=rugcheck-strip]", (els) => els.map((e) => e.innerText));
   ok(`rugcheck strips on shelf: ${strip.length}`);
@@ -87,6 +95,8 @@ async function run(width) {
     await page.waitForSelector("[data-testid=board-verdict]", { timeout: 180000 });
     await page.waitForFunction(() => /^Case closed/.test(document.querySelector("[data-testid=now-line]")?.textContent || ""), null, { timeout: 30000 });
     const step = await page.textContent("[data-testid=step-counter]");
+    const pill = (await page.textContent("[data-testid=mode-pill]")).trim();
+    if (pill !== "HOSTED REPLAY") fail(`board ${cid}: mode pill "${pill}"`);
     const top = await page.textContent("[data-testid=top-right]");
     ok(`board ${cid}: replay 16x reached the verdict in ${((Date.now() - t0) / 1000).toFixed(1)} s · ${step} · top bar "${top}"`);
     if (!/^RUN \w+ · SEQ (\d+)\/\1$/.test(top)) fail(`board ${cid}: top bar should read RUN <id> · SEQ N/N, got "${top}"`);
@@ -120,6 +130,28 @@ async function run(width) {
     if (cid === YAGI || width > 600) await shot(`verdict-${cid}`);
   }
 
+  // Deep links: direct HTTP GET, a fresh tab straight onto the URL, then a hard refresh.
+  for (const [path, sel] of [[`/case/${YAGI}/verdict`, "[data-testid=why-lines] li"], ["/memory", "[data-wallet]"], [`/case/${YAGI}`, "[data-testid=step-counter]"]]) {
+    const res = await fetch(BASE + path);
+    const html = await res.text();
+    if (res.status !== 200 || !html.includes('<div id="root">')) { fail(`deep link ${path}: HTTP ${res.status}`); continue; }
+    const tab = await ctx.newPage();
+    tab.on("pageerror", (e) => errors.push(String(e)));
+    await tab.goto(BASE + path);
+    await tab.waitForSelector(sel, { timeout: 30000 });
+    await tab.reload({ waitUntil: "load" });
+    await tab.waitForSelector(sel, { timeout: 30000 });
+    ok(`deep link ${path}: HTTP 200, renders on direct open and after hard refresh`);
+    if (path.endsWith("/verdict")) {
+      await ctx.grantPermissions(["clipboard-read", "clipboard-write"], { origin: BASE });
+      await tab.click("[data-testid=share]");
+      await tab.waitForFunction(() => /Link copied/.test(document.querySelector("[data-testid=share]")?.textContent || ""), null, { timeout: 5000 }).catch(() => {});
+      const copied = await tab.evaluate(() => navigator.clipboard.readText()).catch((e) => `read failed: ${e}`);
+      if (copied === tab.url()) ok(`share link copies the absolute URL: ${copied}`); else fail(`share link copied "${copied}", page is ${tab.url()}`);
+    }
+    await tab.close();
+  }
+
   await page.goto(BASE + "/memory");
   await page.waitForSelector("[data-wallet]");
   const nFeatured = (await page.$$("[data-wallet]")).length;
@@ -139,7 +171,7 @@ try {
   await run(390);
 } finally {
   await browser.close();
-  server.close();
+  if (!EXTERNAL) server.close();
 }
 console.log(failures.length ? `\nUI CHECK FAILED (${failures.length})` : "\nUI CHECK PASSED");
 process.exit(failures.length ? 1 : 0);

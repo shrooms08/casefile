@@ -12,7 +12,11 @@ Casefile: agents that explain why a Solana token dumped.
 - `casefile/hmem/`: H-MEM memory engine in TypeScript, adapted from the Meterless reference
   (Apache-2.0); `casefile/memory.py` calls it through `casefile/hmem/cli.ts`. State in `runs/memory/`.
 
-## Run
+## Run it live
+
+The live desk needs a local Zetaris instance (with the `RUGCHECK_REST` / `DEXSCREENER_REST`
+Lightning databases), Meterless Nightshift with the `casefile-fast` / `casefile-deep` apps, and the
+keys in `.env` (see `.env.example`). Then:
 
 ```bash
 uv sync && npm install                    # Python deps + tsx for H-MEM
@@ -25,11 +29,14 @@ uv run pytest tests/ -q                   # API tests in replay mode (no Zetaris
 
 ## Web app
 
+Hosted replay (no backend): deploy `web/` to Vercel; `web/vercel.json` builds `npm run build:static`
+into `web/dist` from the committed `web/public/demo/`.
+
 ```bash
-uv run casefile serve            # API + built UI at http://localhost:8000 (needs web/dist, committed)
+uv run casefile serve            # API + built UI at http://localhost:8000 (serves web/dist-api, committed)
 cd web && npm install && npm run dev        # development UI at :5173, proxies /api to :8000
-cd web && npm run build                     # web/dist for `casefile serve` (VITE_DATA_SOURCE=api)
-cd web && npm run build:static              # web/dist-static: no backend, replays web/public/demo/
+cd web && npm run build                     # web/dist-api for `casefile serve` (VITE_DATA_SOURCE=api)
+cd web && npm run build:static              # web/dist: no backend, replays web/public/demo/ (Vercel)
 uv run python scripts/build_static_demo.py  # regenerate web/public/demo/ from demo_cases/ via the API
 node scripts/ui_check.mjs                   # Playwright check of the static build, screenshots in web/screenshots/
 ```

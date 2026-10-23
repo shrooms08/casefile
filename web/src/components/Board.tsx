@@ -7,7 +7,7 @@ import { LANES, laneState, pendingReviews, reduceBoard } from "../board/reducer"
 import type { Board, ClaimCard, LaneKey } from "../board/reducer";
 import { sx } from "../lib/sx";
 import { BLUE, GREEN, OCH_TAB, RED, RED_TAB, ROT, clock, date, labelColor, labelText, modelName, modelShort, timeUtc } from "../lib/format";
-import { Loading } from "./common";
+import { Loading, copyText } from "./common";
 import EvidencePocket from "./EvidencePocket";
 
 const LANE_DEFS: { key: LaneKey; name: string; tab: string }[] = [
@@ -277,7 +277,7 @@ function Sections({ b, t0, nowS, caseId }: { b: Board; t0: number; nowS: number;
 export default function BoardPage() {
   const { caseId = "" } = useParams();
   const [q] = useSearchParams();
-  const { setTopRight, setLastCase, reloadCases } = useApp();
+  const { setTopRight, setLastCase, reloadCases, health } = useApp();
   const runParam = q.get("run") || undefined;
   const [detail, setDetail] = useState<CaseDetail | null>(null);
   const [trace, setTrace] = useState<TraceEvent[] | null>(null);
@@ -337,7 +337,7 @@ export default function BoardPage() {
       : player.next
         ? `${player.playing ? "Now" : "Paused"} · next: ${player.next.type.replace(/_/g, " ")}${player.next.agent && !["casefile", "h-mem"].includes(player.next.agent) ? ` (${player.next.agent})` : ""} in ${player.nextIn} s at ${player.speed}x`
         : "";
-  const pill = live ? "LIVE" : "REPLAY";
+  const pill = live ? "LIVE" : health?.mode === "static" ? "HOSTED REPLAY" : "REPLAY";
   const pillColor = live ? "#7fbf8c" : "#d9a24a";
   const ctl = (on: boolean) => sx(`padding:7px 10px;background:${on ? "#e8e2d4" : "transparent"};color:${on ? "#131210" : "#e8e2d4"};border:1px solid #4a463f;font-size:12px;cursor:pointer`);
 
@@ -351,7 +351,7 @@ export default function BoardPage() {
           <div style={sx("display:flex;gap:10px;align-items:center;flex-wrap:wrap;font-family:'IBM Plex Mono',monospace;font-size:12px;color:#bdb6a6")}>
             <span title="A token's mint is its unique on-chain address." style={sx("border-bottom:1px dotted #9a9384;cursor:help")}>Mint</span>
             <span style={sx("color:#e8e2d4")} title={mint}>{mint ? `${mint.slice(0, 4)}…${mint.slice(-4)}` : "—"}</span>
-            <button onClick={() => { navigator.clipboard?.writeText(mint).catch(() => {}); setCopied(true); setTimeout(() => setCopied(false), 1400); }} style={sx("background:none;border:1px solid #4a463f;color:#e8e2d4;padding:3px 8px;font-family:'IBM Plex Mono',monospace;font-size:11px;cursor:pointer")}>{copied ? "Copied" : "Copy"}</button>
+            <button onClick={() => { copyText(mint); setCopied(true); setTimeout(() => setCopied(false), 1400); }} style={sx("background:none;border:1px solid #4a463f;color:#e8e2d4;padding:3px 8px;font-family:'IBM Plex Mono',monospace;font-size:11px;cursor:pointer")}>{copied ? "Copied" : "Copy"}</button>
             <span data-testid="mode-pill" style={sx(`padding:3px 9px;border:1px solid ${pillColor};color:${pillColor};letter-spacing:.12em;font-size:11px`)}>{pill}</span>
           </div>
         </div>

@@ -246,11 +246,12 @@ def create_app(replay: bool = False, store: Store | None = None) -> FastAPI:
     return app
 
 
-WEB_DIST = Path(__file__).resolve().parent.parent.parent / "web" / "dist"
+# The api-mode UI build (`cd web && npm run build`). web/dist is the static Vercel build.
+WEB_DIST = Path(__file__).resolve().parent.parent.parent / "web" / "dist-api"
 
 
 def _mount_web(app: FastAPI, dist: Path = WEB_DIST) -> None:
-    """Serve the built UI (web/dist) at /, with client-side routes falling back to index.html."""
+    """Serve the built UI (web/dist-api) at /, with client-side routes falling back to index.html."""
     index = dist / "index.html"
     if not index.exists():
         return
