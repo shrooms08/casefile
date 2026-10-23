@@ -1,0 +1,40 @@
+{
+  "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263": {
+    "cid": "m_d54bf9a14eb4",
+    "dex_table": "dexscreener_rest.m_d54bf9a14eb4_dex",
+    "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "rug_table": "rugcheck_rest.m_d54bf9a14eb4_rug",
+    "rugcheck_error": null,
+    "urls": {
+      "dexscreener": "https://api.dexscreener.com/latest/dex/tokens/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+      "rugcheck": "https://api.rugcheck.xyz/v1/tokens/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263/report"
+    },
+    "views": {
+      "holders": "casefile.m_d54bf9a14eb4_holders",
+      "insiders": "casefile.m_d54bf9a14eb4_insiders",
+      "markets": "casefile.m_d54bf9a14eb4_markets",
+      "pairs": "casefile.m_d54bf9a14eb4_pairs",
+      "risks": "casefile.m_d54bf9a14eb4_risks",
+      "summary": "casefile.m_d54bf9a14eb4_summary"
+    }
+  },
+  "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm": {
+    "cid": "m_d2f031d73387",
+    "dex_table": "dexscreener_rest.m_d2f031d73387_dex",
+    "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+    "rug_table": "rugcheck_rest.m_d2f031d73387_rug",
+    "rugcheck_error": null,
+    "urls": {
+      "dexscreener": "https://api.dexscreener.com/latest/dex/tokens/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+      "rugcheck": "https://api.rugcheck.xyz/v1/tokens/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm/report"
+    },
+    "views": {
+      "holders": "casefile.m_d2f031d73387_holders",
+      "insiders": "casefile.m_d2f031d73387_insiders",
+      "markets": "casefile.m_d2f031d73387_markets",
+      "pairs": "casefile.m_d2f031d73387_pairs",
+      "risks": "casefile.m_d2f031d73387_risks",
+      "summary": "casefile.m_d2f031d73387_summary"
+    }
+  }
+}

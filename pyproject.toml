@@ -1,0 +1,19 @@
+[project]
+name = "casefile"
+version = "0.1.0"
+description = "Casefile: agents that explain why a Solana token dumped."
+authors = [
+    { name = "Minos" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "python-dotenv>=1.2.4",
+    "requests>=2.34.2",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.9,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-root = ""
