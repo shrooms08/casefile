@@ -9,6 +9,9 @@ open_case(mint) creates, idempotently:
   casefile.<cid>_risks            one row per RugCheck risk
   casefile.<cid>_insiders         one row per RugCheck insider network
   casefile.<cid>_markets          one row per market/LP pool RugCheck found
+  casefile.<cid>_known_accounts   one row per RugCheck known account (address, name, type)
+  casefile.<cid>_lockers          one row per token/LP locker RugCheck found
+  CASEFILE_SNAP.<cid>_<view>_snap frozen copy of each view (see casefile/snapshot.py)
 
 <cid> is "m_" + first 12 hex chars of sha1(mint). Nothing is ever dropped or replaced.
 
@@ -24,7 +27,7 @@ from __future__ import annotations
 import hashlib
 import json
 import re
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 
 from casefile.zetaris import ZetarisError, run_sql
@@ -87,6 +90,13 @@ MARKETS_SCHEMA = (
     "lpLocked:double,lpUnlocked:double,lpLockedPct:double,lpLockedUSD:double>>>"
 )
 
+# knownAccounts and lockers are objects keyed by address, so they parse as maps.
+KNOWN_ACCOUNTS_SCHEMA = "map<string,struct<name:string,type:string>>"
+LOCKERS_SCHEMA = (
+    "map<string,struct<programID:string,tokenAccount:string,owner:string,uri:string,"
+    "unlockDate:bigint,usdcLocked:double,type:string>>"
+)
+
 
 @dataclass
 class Case:
@@ -97,6 +107,8 @@ class Case:
     views: dict[str, str]  # logical name -> casefile.<view>
     urls: dict[str, str]  # source name -> original API URL
     rugcheck_error: str | None = None
+    snapshots: dict[str, dict] = field(default_factory=dict)  # view key -> snapshot info
+    snapshot_error: str | None = None
 
 
 def validate_mint(mint: str) -> str:
@@ -237,6 +249,25 @@ def _markets_select(rug: str) -> str:
     )
 
 
+def _map_select(rug: str, field_name: str, schema: str, cols: str) -> str:
+    return (
+        f"SELECT {cols} FROM {rug} "
+        f"LATERAL VIEW explode(from_json(to_json(named_struct('a', {field_name})), 'struct<a:{schema}>').a) AS k, v"
+    )
+
+
+def _known_accounts_select(rug: str) -> str:
+    return _map_select(rug, "knownAccounts", KNOWN_ACCOUNTS_SCHEMA, "k AS address, v.name AS name, v.type AS type")
+
+
+def _lockers_select(rug: str) -> str:
+    return _map_select(
+        rug, "lockers", LOCKERS_SCHEMA,
+        "k AS locker, v.type AS type, v.programID AS program_id, v.tokenAccount AS token_account, "
+        "v.owner AS owner, v.unlockDate AS unlock_date, v.usdcLocked AS usdc_locked, v.uri AS uri",
+    )
+
+
 # --- registry -------------------------------------------------------------------
 
 
@@ -256,8 +287,11 @@ def _save(case: Case) -> None:
 # --- public API -----------------------------------------------------------------
 
 
-def open_case(mint: str, verbose: bool = False) -> Case:
-    """Create (if missing) every Zetaris object for this token and return their names."""
+def open_case(mint: str, verbose: bool = False, snapshot: bool = True) -> Case:
+    """Create (if missing) every Zetaris object for this token and return their names.
+
+    With snapshot=True each view is also frozen once into CASEFILE_SNAP.<cid>_<view>_snap,
+    so later reads don't refetch the APIs."""
     mint = validate_mint(mint)
     cid = case_id(mint)
     log = print if verbose else (lambda *a, **k: None)
@@ -268,6 +302,7 @@ def open_case(mint: str, verbose: bool = False) -> Case:
     case = Case(mint=mint, cid=cid, dex_table=dex_table, rug_table=rug_table, views={},
                 urls={"dexscreener": dex_url, "rugcheck": rug_url})
 
+    case.snapshots = dict((_load_registry().get(mint) or {}).get("snapshots") or {})
     views_present = _container_views()
 
     def ensure_view(key: str, select: str) -> None:
@@ -302,6 +337,22 @@ def open_case(mint: str, verbose: bool = False) -> Case:
     except ZetarisError as e:
         case.rugcheck_error = str(e)
         log(f"  RugCheck setup failed: {e}")
+
+    # Label views are optional: a failure here leaves the core case file intact.
+    if not case.rugcheck_error:
+        for key, select in (("known_accounts", _known_accounts_select), ("lockers", _lockers_select)):
+            try:
+                ensure_view(key, select(rug_table))
+            except ZetarisError as e:
+                log(f"  view {key} failed: {e}")
+
+    if snapshot:
+        from casefile.snapshot import ensure_snapshots  # local import: snapshot imports this module
+        try:
+            case.snapshots = ensure_snapshots(case, log)
+        except ZetarisError as e:
+            case.snapshot_error = str(e)
+            log(f"  snapshot failed: {e}")
 
     _save(case)
     return case

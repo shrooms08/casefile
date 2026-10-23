@@ -75,16 +75,77 @@ the strongest "coordinated dump" evidence available here.
 `baseUSD`, `quoteUSD`, `lpLockedPct`, `lpLockedUSD`. Gives per-pool LP lock status.
 `case_file` reads only the top 25 (by locked USD, then quote USD).
 
+### `casefile.<cid>_known_accounts`
+`knownAccounts` is an object keyed by address (`{name, type}`), parsed as
+`map<string,struct<name,type>>` and exploded: `address`, `name`, `type` (AMM, CEX, LOCKER, CREATOR...).
+BONK has 2,606 AMM + 14 LOCKER + 1 CREATOR entries; WIF 1,810 AMM + 8 LOCKER.
+
+### `casefile.<cid>_lockers`
+`lockers` (keyed by locker account): `locker`, `type` (jupiter_locker, raydium_locker...),
+`program_id`, `token_account`, `owner`, `unlock_date` (epoch s), `usdc_locked`, `uri`.
+
+### Holder labels
+`case_file` adds `label` / `label_type` to top holders: knownAccounts matched on the holder's
+`owner` wallet, then on its `token_account`, then lockers matched on `token_account` (label
+`locker`). Unlabelled holders keep `label = NULL`. The join runs in Zetaris SQL on the snapshot
+tables. It can't run on the live views: two views over the same REST table in one query fail
+with `[MISSING_ATTRIBUTES.RESOLVED_ATTRIBUTE_APPEAR_IN_OPERATION] Resolved attribute(s)
+"knownAccounts" missing from ...` (a Spark self-join problem), so `fresh=True` reads have no labels.
+
 ### Present but not exposed yet
-- `knownAccounts`: an object keyed by wallet address (`{name, type}`: AMM, CEX...). Useful
-  for labelling holders (e.g. "this 8% holder is an exchange"). It's a dynamic-key object,
-  so it needs the `from_json(to_json(..), 'map<string,struct<..>>')` technique; not done yet.
-- `lockers` (dynamic-key, `{type, unlockDate, usdcLocked, uri}`), `lockerOwners`.
-- `markets[].lp.holders` (LP token holders per pool), `markets[].*Account` details.
+- `lockerOwners`, `markets[].lp.holders` (LP token holders per pool), `markets[].*Account` details.
 - `events` (empty for BONK/WIF), `fileMeta`, `verification.description`, `validation`.
 - `creatorTokens` (other tokens by the same creator; null for BONK/WIF).
-- `/v1/tokens/{mint}/report/summary` is a much smaller endpoint (score, risks, `lpLockedPct`)
-  if the full report ever becomes too slow.
+- `/v1/tokens/{mint}/report/summary` is a much smaller endpoint (score, risks, `lpLockedPct`).
+
+## Evidence snapshots (approach used: Zetaris-managed Parquet tables)
+
+`open_case` freezes each case view once, entirely inside Zetaris (`casefile/snapshot.py`):
+
+1. `RUN EXPORT TO STORAGE (query = 'SELECT *, current_timestamp() AS captured_at FROM casefile.<cid>_<view>',
+   path = 'file:///home/zetaris/customer-data/shared/casefile_snap/<cid>_<view>_snap/<UTC stamp>', format = 'parquet',
+   saveMode = 'errorifexists', optionsBase64 = 'e30=')`. Zetaris runs the view (so it still fetches and
+   shapes the data) and writes the result to its own local file storage
+   (`ZETARIS_LOCAL_FILE_SYTEM_ROOT_PATH` in the driver container).
+2. `CREATE LIGHTNING FILESTORE TABLE <cid>_<view>_snap FROM CASEFILE_SNAP FORMAT PARQUET OPTIONS (PATH "<same path>")`
+   in a new Lightning database `CASEFILE_SNAP`.
+
+`case_file` then reads `casefile_snap.<cid>_<view>_snap`. Each row has `captured_at` (Zetaris
+clock), and `cases.json` records, per view, the snapshot table, the Parquet path, the source
+view and the exact SQL that produced it. Nothing is overwritten (`errorifexists`, and existing
+snapshot tables are kept); each export goes to a new timestamped folder
+`.../casefile_snap/<cid>_<view>_snap/<UTC stamp>`. `get_case_file(mint, fresh=True)` skips the snapshots and reads the live views.
+
+Why this and not the alternatives in the docs: there is no plain CTAS into a Lightning database,
+there are no JDBC datasources on this instance (`SHOW DATASOURCES` is empty), `MATERIALIZE USL TABLE`
+needs a USL model, and `OFFSITE CACHE TABLE` is admin-only and would attach state to the existing
+REST tables. The JSON-file fallback under `runs/` was not needed.
+
+Quirks: a view with zero rows (e.g. WIF `risks`) exports a Parquet folder with no schema, so
+reading it fails with a schema-inference error; `case_file` treats that as an empty list. BONK's
+`summary` snapshot was registered during the first experiment and points at
+`.../casefile_snap/m_d54bf9a14eb4_summary_test1`.
+
+Timings on this local instance (2026-10-23):
+
+| Token | Live views (before) | First open, builds snapshots | Later reads (after) |
+|---|---|---|---|
+| BONK | 80.6 s (Day 1: 25-35 s) | 282 s* | 0.8-1.1 s |
+| WIF | 36.2 s | 77.9 s | 0.6 s |
+| ヤギ (rug case) | n/a | 32.8 s (incl. creating REST tables + views) | 1.0 s |
+
+\* BONK's first build ran right after a driver restart. The first attempt ran 8 exports in
+parallel and wedged the local driver (`docker compose restart driver` fixed it), so
+exports now run one at a time.
+
+Two more things it took to get under 2 s: the local driver runs queries one at a time, so
+seven parallel reads were no faster than seven sequential ones (about 7.5 s). Reads are now
+one `UNION ALL` query that returns each row as `to_json(struct(*))`. Labelled holders are
+frozen as their own snapshot (`<cid>_holders_labelled_snap`) because the join alone took 3.4 s.
+When `cases.json` already lists a complete snapshot set, `get_case_file` skips `open_case`'s
+SHOW checks (about 2 s) and goes straight to the one query, falling back to `open_case` if it fails.
+The Lightning parser rejects `''` escapes inside `RUN EXPORT ... query = '...'`, so snapshot SQL
+uses `"..."` string literals.
 
 ## Zetaris notes / quirks found
 
@@ -95,8 +156,8 @@ the strongest "coordinated dump" evidence available here.
   tolerates null-typed and missing fields (they come back NULL). No view had to be
   simplified or dropped.
 - **Speed.** A REST table refetches the API on every query. RugCheck views take about 10-20 s
-  each (2.5 MB report). `case_file` runs the six view queries in parallel (about 25-35 s total).
-  Each view is a separate fetch, so the views of one case file can be seconds apart.
+  each (2.5 MB report), so a live case file takes 25-35 s. Each view is a separate fetch, so the
+  views of one snapshot can be seconds apart (see `captured_at`). Fixed with snapshots (above).
   `CACHE TABLE` is a session cache and wasn't used.
 - `SHOW TABLES IN casefile` lists SchemaStore views (`table_identifier`, uppercase), and
   `SHOW LIGHTNING TABLES <db>` lists REST tables. `open_case` checks both before creating

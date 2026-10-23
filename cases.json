@@ -5,6 +5,72 @@
     "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
     "rug_table": "rugcheck_rest.m_d54bf9a14eb4_rug",
     "rugcheck_error": null,
+    "snapshot_error": null,
+    "snapshots": {
+      "holders": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d54bf9a14eb4_holders_snap/20261023T031828Z",
+        "rows": 20,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d54bf9a14eb4_holders",
+        "table": "casefile_snap.m_d54bf9a14eb4_holders_snap",
+        "view": "casefile.m_d54bf9a14eb4_holders"
+      },
+      "holders_labelled": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d54bf9a14eb4_holders_labelled_snap/20261023T032609Z",
+        "rows": 20,
+        "sql": "SELECT h.*, COALESCE(ko.name, kt.name, lk.label) AS label, COALESCE(ko.type, kt.type, lk.label_type) AS label_type FROM casefile_snap.m_d54bf9a14eb4_holders_snap h LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_d54bf9a14eb4_known_accounts_snap GROUP BY address) ko ON ko.address = h.owner LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_d54bf9a14eb4_known_accounts_snap GROUP BY address) kt ON kt.address = h.token_account LEFT JOIN (SELECT token_account, \"locker\" AS label, max(type) AS label_type FROM casefile_snap.m_d54bf9a14eb4_lockers_snap GROUP BY token_account) lk ON lk.token_account = h.token_account",
+        "table": "casefile_snap.m_d54bf9a14eb4_holders_labelled_snap",
+        "view": "casefile_snap.m_d54bf9a14eb4_holders_snap+casefile_snap.m_d54bf9a14eb4_known_accounts_snap+casefile_snap.m_d54bf9a14eb4_lockers_snap"
+      },
+      "insiders": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d54bf9a14eb4_insiders_snap/20261023T032015Z",
+        "rows": 1,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d54bf9a14eb4_insiders",
+        "table": "casefile_snap.m_d54bf9a14eb4_insiders_snap",
+        "view": "casefile.m_d54bf9a14eb4_insiders"
+      },
+      "known_accounts": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d54bf9a14eb4_known_accounts_snap/20261023T032112Z",
+        "rows": 2621,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d54bf9a14eb4_known_accounts",
+        "table": "casefile_snap.m_d54bf9a14eb4_known_accounts_snap",
+        "view": "casefile.m_d54bf9a14eb4_known_accounts"
+      },
+      "lockers": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d54bf9a14eb4_lockers_snap/20261023T032142Z",
+        "rows": 15,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d54bf9a14eb4_lockers",
+        "table": "casefile_snap.m_d54bf9a14eb4_lockers_snap",
+        "view": "casefile.m_d54bf9a14eb4_lockers"
+      },
+      "markets": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d54bf9a14eb4_markets_snap/20261023T032049Z",
+        "rows": 1283,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d54bf9a14eb4_markets",
+        "table": "casefile_snap.m_d54bf9a14eb4_markets_snap",
+        "view": "casefile.m_d54bf9a14eb4_markets"
+      },
+      "pairs": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d54bf9a14eb4_pairs_snap/20261023T031800Z",
+        "rows": 30,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d54bf9a14eb4_pairs",
+        "table": "casefile_snap.m_d54bf9a14eb4_pairs_snap",
+        "view": "casefile.m_d54bf9a14eb4_pairs"
+      },
+      "risks": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d54bf9a14eb4_risks_snap/20261023T031945Z",
+        "rows": 1,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d54bf9a14eb4_risks",
+        "table": "casefile_snap.m_d54bf9a14eb4_risks_snap",
+        "view": "casefile.m_d54bf9a14eb4_risks"
+      },
+      "summary": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d54bf9a14eb4_summary_test1",
+        "rows": 1,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d54bf9a14eb4_summary",
+        "table": "casefile_snap.m_d54bf9a14eb4_summary_snap",
+        "view": "casefile.m_d54bf9a14eb4_summary"
+      }
+    },
     "urls": {
       "dexscreener": "https://api.dexscreener.com/latest/dex/tokens/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
       "rugcheck": "https://api.rugcheck.xyz/v1/tokens/DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263/report"
@@ -12,6 +78,8 @@
     "views": {
       "holders": "casefile.m_d54bf9a14eb4_holders",
       "insiders": "casefile.m_d54bf9a14eb4_insiders",
+      "known_accounts": "casefile.m_d54bf9a14eb4_known_accounts",
+      "lockers": "casefile.m_d54bf9a14eb4_lockers",
       "markets": "casefile.m_d54bf9a14eb4_markets",
       "pairs": "casefile.m_d54bf9a14eb4_pairs",
       "risks": "casefile.m_d54bf9a14eb4_risks",
@@ -24,6 +92,72 @@
     "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
     "rug_table": "rugcheck_rest.m_d2f031d73387_rug",
     "rugcheck_error": null,
+    "snapshot_error": null,
+    "snapshots": {
+      "holders": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d2f031d73387_holders_snap/20261023T032739Z",
+        "rows": 20,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d2f031d73387_holders",
+        "table": "casefile_snap.m_d2f031d73387_holders_snap",
+        "view": "casefile.m_d2f031d73387_holders"
+      },
+      "holders_labelled": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d2f031d73387_holders_labelled_snap/20261023T032838Z",
+        "rows": 20,
+        "sql": "SELECT h.*, COALESCE(ko.name, kt.name, lk.label) AS label, COALESCE(ko.type, kt.type, lk.label_type) AS label_type FROM casefile_snap.m_d2f031d73387_holders_snap h LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_d2f031d73387_known_accounts_snap GROUP BY address) ko ON ko.address = h.owner LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_d2f031d73387_known_accounts_snap GROUP BY address) kt ON kt.address = h.token_account LEFT JOIN (SELECT token_account, \"locker\" AS label, max(type) AS label_type FROM casefile_snap.m_d2f031d73387_lockers_snap GROUP BY token_account) lk ON lk.token_account = h.token_account",
+        "table": "casefile_snap.m_d2f031d73387_holders_labelled_snap",
+        "view": "casefile_snap.m_d2f031d73387_holders_snap+casefile_snap.m_d2f031d73387_known_accounts_snap+casefile_snap.m_d2f031d73387_lockers_snap"
+      },
+      "insiders": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d2f031d73387_insiders_snap/20261023T032800Z",
+        "rows": 3,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d2f031d73387_insiders",
+        "table": "casefile_snap.m_d2f031d73387_insiders_snap",
+        "view": "casefile.m_d2f031d73387_insiders"
+      },
+      "known_accounts": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d2f031d73387_known_accounts_snap/20261023T032818Z",
+        "rows": 1818,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d2f031d73387_known_accounts",
+        "table": "casefile_snap.m_d2f031d73387_known_accounts_snap",
+        "view": "casefile.m_d2f031d73387_known_accounts"
+      },
+      "lockers": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d2f031d73387_lockers_snap/20261023T032829Z",
+        "rows": 8,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d2f031d73387_lockers",
+        "table": "casefile_snap.m_d2f031d73387_lockers_snap",
+        "view": "casefile.m_d2f031d73387_lockers"
+      },
+      "markets": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d2f031d73387_markets_snap/20261023T032808Z",
+        "rows": 927,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d2f031d73387_markets",
+        "table": "casefile_snap.m_d2f031d73387_markets_snap",
+        "view": "casefile.m_d2f031d73387_markets"
+      },
+      "pairs": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d2f031d73387_pairs_snap/20261023T032726Z",
+        "rows": 30,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d2f031d73387_pairs",
+        "table": "casefile_snap.m_d2f031d73387_pairs_snap",
+        "view": "casefile.m_d2f031d73387_pairs"
+      },
+      "risks": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d2f031d73387_risks_snap/20261023T032749Z",
+        "rows": 0,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d2f031d73387_risks",
+        "table": "casefile_snap.m_d2f031d73387_risks_snap",
+        "view": "casefile.m_d2f031d73387_risks"
+      },
+      "summary": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_d2f031d73387_summary_snap/20261023T032729Z",
+        "rows": 1,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_d2f031d73387_summary",
+        "table": "casefile_snap.m_d2f031d73387_summary_snap",
+        "view": "casefile.m_d2f031d73387_summary"
+      }
+    },
     "urls": {
       "dexscreener": "https://api.dexscreener.com/latest/dex/tokens/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
       "rugcheck": "https://api.rugcheck.xyz/v1/tokens/EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm/report"
@@ -31,10 +165,91 @@
     "views": {
       "holders": "casefile.m_d2f031d73387_holders",
       "insiders": "casefile.m_d2f031d73387_insiders",
+      "known_accounts": "casefile.m_d2f031d73387_known_accounts",
+      "lockers": "casefile.m_d2f031d73387_lockers",
       "markets": "casefile.m_d2f031d73387_markets",
       "pairs": "casefile.m_d2f031d73387_pairs",
       "risks": "casefile.m_d2f031d73387_risks",
       "summary": "casefile.m_d2f031d73387_summary"
+    }
+  },
+  "FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump": {
+    "cid": "m_bd95541d260d",
+    "dex_table": "dexscreener_rest.m_bd95541d260d_dex",
+    "mint": "FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+    "rug_table": "rugcheck_rest.m_bd95541d260d_rug",
+    "rugcheck_error": null,
+    "snapshot_error": null,
+    "snapshots": {
+      "holders": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_bd95541d260d_holders_snap/20261023T033237Z",
+        "rows": 4,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_holders",
+        "table": "casefile_snap.m_bd95541d260d_holders_snap",
+        "view": "casefile.m_bd95541d260d_holders"
+      },
+      "holders_labelled": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_bd95541d260d_holders_labelled_snap/20261023T033254Z",
+        "rows": 4,
+        "sql": "SELECT h.*, COALESCE(ko.name, kt.name) AS label, COALESCE(ko.type, kt.type) AS label_type FROM casefile_snap.m_bd95541d260d_holders_snap h LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_bd95541d260d_known_accounts_snap GROUP BY address) ko ON ko.address = h.owner LEFT JOIN (SELECT address, max(name) AS name, max(type) AS type FROM casefile_snap.m_bd95541d260d_known_accounts_snap GROUP BY address) kt ON kt.address = h.token_account",
+        "table": "casefile_snap.m_bd95541d260d_holders_labelled_snap",
+        "view": "casefile_snap.m_bd95541d260d_holders_snap+casefile_snap.m_bd95541d260d_known_accounts_snap"
+      },
+      "insiders": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_bd95541d260d_insiders_snap/20261023T033243Z",
+        "rows": 10,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_insiders",
+        "table": "casefile_snap.m_bd95541d260d_insiders_snap",
+        "view": "casefile.m_bd95541d260d_insiders"
+      },
+      "known_accounts": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_bd95541d260d_known_accounts_snap/20261023T033251Z",
+        "rows": 7,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_known_accounts",
+        "table": "casefile_snap.m_bd95541d260d_known_accounts_snap",
+        "view": "casefile.m_bd95541d260d_known_accounts"
+      },
+      "markets": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_bd95541d260d_markets_snap/20261023T033246Z",
+        "rows": 1,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_markets",
+        "table": "casefile_snap.m_bd95541d260d_markets_snap",
+        "view": "casefile.m_bd95541d260d_markets"
+      },
+      "pairs": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_bd95541d260d_pairs_snap/20261023T033230Z",
+        "rows": 2,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_pairs",
+        "table": "casefile_snap.m_bd95541d260d_pairs_snap",
+        "view": "casefile.m_bd95541d260d_pairs"
+      },
+      "risks": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_bd95541d260d_risks_snap/20261023T033241Z",
+        "rows": 1,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_risks",
+        "table": "casefile_snap.m_bd95541d260d_risks_snap",
+        "view": "casefile.m_bd95541d260d_risks"
+      },
+      "summary": {
+        "path": "file:///home/zetaris/customer-data/shared/casefile_snap/m_bd95541d260d_summary_snap/20261023T033233Z",
+        "rows": 1,
+        "sql": "SELECT *, current_timestamp() AS captured_at FROM casefile.m_bd95541d260d_summary",
+        "table": "casefile_snap.m_bd95541d260d_summary_snap",
+        "view": "casefile.m_bd95541d260d_summary"
+      }
+    },
+    "urls": {
+      "dexscreener": "https://api.dexscreener.com/latest/dex/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump",
+      "rugcheck": "https://api.rugcheck.xyz/v1/tokens/FxzUDJHc9TbMJjGmthmnjbC9AF6FnGxNuFmbP1Jepump/report"
+    },
+    "views": {
+      "holders": "casefile.m_bd95541d260d_holders",
+      "insiders": "casefile.m_bd95541d260d_insiders",
+      "known_accounts": "casefile.m_bd95541d260d_known_accounts",
+      "markets": "casefile.m_bd95541d260d_markets",
+      "pairs": "casefile.m_bd95541d260d_pairs",
+      "risks": "casefile.m_bd95541d260d_risks",
+      "summary": "casefile.m_bd95541d260d_summary"
     }
   }
 }
