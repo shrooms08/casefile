@@ -38,7 +38,7 @@ flowchart LR
 
 - **Open the case.** Zetaris pulls RugCheck and DexScreener through per-token Lightning REST tables, shapes them with views, and freezes them once as Parquet snapshot tables. Agents only ever read the snapshot.
 - **Recall.** H-MEM recalls what the desk already knows about the creator and the top-20 holders, including wallets it has marked "likely custodian or exchange".
-- **Plan and investigate.** A planner sets 3 to 5 questions; three investigators (holders, liquidity, deployer) answer them in parallel with claims, each citing `table · field · value`. Each citation is checked against the snapshot in code before the Skeptic sees it.
+- **Plan and investigate.** A planner writes 3 or 4 questions (the validator accepts 3 to 5); three investigators (holders, liquidity, deployer) answer them in parallel with claims, each citing `table · field · value`. Each citation is checked against the snapshot in code before the Skeptic sees it.
 - **Skeptic.** Every claim is accepted or rejected. A rejected claim goes back to its investigator once with a fix request, is reviewed again, and is dropped if it still fails.
 - **Verdict.** The verdict uses only accepted claims: RUGGED, HIGH_RISK, CAUTION or NO_RUG_EVIDENCE, with each why-line naming its claim. H-MEM then stores the wallets for future cases.
 
