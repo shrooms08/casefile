@@ -2,7 +2,7 @@
 
 Agents that explain why a Solana token dumped, and show the receipts.
 
-**[Hosted replay](https://casefile-ruddy-two.vercel.app/)** · **[Demo video](DEMO_VIDEO_URL)** · **[Slides](SLIDES_URL)**
+**[Hosted replay](https://casefile-ruddy-two.vercel.app/)** · **[Demo video](https://youtu.be/kUxXoVhABFI)** · **[Slides](https://hackathon-server.genai.works/api/v1/cdn/proxy/hackathon/09d9924ff39442c1a9d2a755456e05af.pdf)**
 
 RugCheck's own `rugged` flag is `false` for ヤギ and kimchisol; Casefile files both as **RUGGED**, and every line of the verdict points to evidence from the frozen data snapshot.
 The controls BONK and WIF come back **CAUTION**, not rug.

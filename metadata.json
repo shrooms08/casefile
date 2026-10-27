@@ -5,8 +5,8 @@
   "team": "Breeklayer",
   "repo": "https://github.com/shrooms08/casefile",
   "hosted_demo": "https://casefile-ruddy-two.vercel.app/",
-  "demo_video": "DEMO_VIDEO_URL",
-  "slides": "SLIDES_URL",
+  "demo_video": "https://youtu.be/kUxXoVhABFI",
+  "slides": "https://hackathon-server.genai.works/api/v1/cdn/proxy/hackathon/09d9924ff39442c1a9d2a755456e05af.pdf",
   "demo_cases": [
     {
       "case_id": "m_bd95541d260d",
