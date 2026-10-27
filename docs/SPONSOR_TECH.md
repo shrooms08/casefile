@@ -25,9 +25,9 @@ statement per request, all calls in a process serialized behind `ZETARIS_LOCK`).
 4. **One-query reads.** `casefile/case_file.py` reads all snapshot tables in a single `UNION ALL` query.
    Measured (`fixtures/SOURCES.md`): a live read of the views took 80.6 s (BONK) and 36.2 s (WIF); reads from
    the snapshots take 0.8 to 1.1 s (BONK) and 0.6 s (WIF).
-5. **Agents query only the snapshots.** `query_case` (`casefile/agents/tools.py`) accepts one SELECT, rejects
+5. **Agents read only the snapshots.** Each investigator gets slices of the snapshot tables in its prompt (from the one-query read above). For more it can call `query_case` (`casefile/agents/tools.py`), which accepts one SELECT, rejects
    write/DDL keywords, and only allows this case's `CASEFILE_SNAP` tables; it goes through the same lock and
-   is logged to the trace. Each claim's evidence (`table · field · value`) is checked against the snapshot
+   is logged to the trace. No demo run used `query_case`: the investigators answered from the slices. Each claim's evidence (`table · field · value`) is checked against the snapshot
    rows in code (`casefile/agents/evidence.py`) before the Skeptic reviews it.
 
 Lessons recorded in `fixtures/SOURCES.md`: eight parallel exports wedged the local driver (exports now run one at a
@@ -79,9 +79,9 @@ on every request and `meterless-scope: user` on chat, status from `GET /v1/model
 runtime, and a plain text request on `meterless/auto` returns a string.
 
 **Two apps, two lanes.** Nightshift binds routing per `meterless-app` id, so `role="fast"` sends `casefile-fast` and
-`role="deep"` sends `casefile-deep`. In Nightshift each app's lane allowlist is pinned to one cloud lane
+`role="deep"` sends `casefile-deep`. In Nightshift each app's lane allowlist holds one cloud lane
 (`lightning-fast`: Nemotron 3.5 Lightning, `super-deep`: Nemotron 3.5 Super); setup steps in `fixtures/PERF.md`.
-The receipts keep `requested_mode: meterless/auto`; the pinning shows in `routed_model` and `winning_route`.
+The receipts keep `requested_mode: meterless/auto`; which model actually answered is recorded in `routed_model` and `winning_route`. The allowlist sets where a call starts, not every model that can finish it: in the WIF demo run Nightshift's consensus escalation re-ran one `casefile-fast` deployer call on Super (next section).
 
 **Streaming.** Calls stream (SSE) with `meterless-trace: on`, so the final chunk carries the full receipt. Without
 streaming, Nightshift's 45 s provider-header deadline (`CLOUD_FETCH_DEADLINE_MS`) aborted every call that needed
@@ -96,11 +96,13 @@ produced it, and the case board shows them on every step. The four demo runs hol
 
 | Role | Model (receipt `routed_model`) | Nightshift app |
 |---|---|---|
-| Investigators: holders, liquidity, deployer | `nvidia/nemotron-3.5-lightning-30b-a3b` (Nemotron 3.5 Lightning 30B A3B) | `casefile-fast` |
-| Planner, Skeptic, verdict | `nvidia/nemotron-3.5-super-vl-120b-a12b` (Nemotron 3.5 Super VL 120B A12B) | `casefile-deep` |
+| Investigators: holders, liquidity, deployer | sent to the fast lane: `nvidia/nemotron-3.5-lightning-30b-a3b` (Nemotron 3.5 Lightning 30B A3B) | `casefile-fast` |
+| Planner, Skeptic, verdict | sent to the deep lane: `nvidia/nemotron-3.5-super-vl-120b-a12b` (Nemotron 3.5 Super VL 120B A12B) | `casefile-deep` |
+
+`routed_model` in each receipt records which model actually answered. Across the 50 demo receipts: 28 `casefile-deep` calls answered by Super, 21 `casefile-fast` calls answered by Lightning, and 1 `casefile-fast` call answered by Super. That one is the WIF deployer investigator (claims D1 and D2, `demo_cases/m_d2f031d73387/trace.jsonl`): receipt `rcpt_req_oz1pxls2` shows a `final_synthesis` phase on Lightning (39,871 ms, coherence 0.39), then a `consensus_escalation` phase on Super (11,207 ms), with `routing.escalated_on_divergence: true` and Super as `winning_route`. Nightshift escalated the low-coherence answer; Casefile did not ask for Super.
 
 All four demo runs list both models in `models_used` (`demo_cases/*/meta.json`). Where to see it: on the case board,
-every claim shows `CLAIM <id> · <receipt id>` and the model, the plan shows `PLANNER · NEMOTRON 3.5 SUPER` and its
+every claim shows `CLAIM <id> · <receipt id>` and the model that answered, the plan shows `PLANNER · NEMOTRON 3.5 SUPER` and its
 receipt, and every Skeptic log line shows model and receipt.
 
 Measured on the same small prompt (`fixtures/PERF.md`): Lightning used a median of 1,299 completion tokens in
@@ -228,11 +230,8 @@ Super, Skeptic reviewing claims, ヤギ:
 ## What was unique
 
 - **Evidence frozen inside the data platform.** Zetaris fetches, shapes and freezes the evidence (REST tables → views
-  → Parquet snapshots via `RUN EXPORT TO STORAGE`). Every claim cites a snapshot `table · field · value` that code checks
-  before the Skeptic sees it, and the frozen case replays anywhere with no stack.
+  → Parquet snapshots via `RUN EXPORT TO STORAGE`). Every claim cites its evidence as `table · field · value` (a snapshot field, a field computed from the snapshot, or an H-MEM fact), and code checks it before the Skeptic sees it, and the frozen case replays anywhere with no stack.
 - **Memory as cross-case wallet reputation.** H-MEM is used to remember wallets across investigations. The derived
   "likely custodian or exchange" memory is created through H-MEM's dreaming approval boundary, and the Skeptic must
   respect it, so a known exchange wallet in WIF is not mistaken for an insider because it was already seen in BONK.
-- **The receipt is the reasoning trace.** Each role is a separate Nightshift app pinned to its own Nemotron lane.
-  Every agent step, claim, Skeptic decision and verdict carries the Meterless receipt id and `routed_model` of the
-  call that produced it, and the UI renders them.
+- **The receipt is the reasoning trace.** Each role is a separate Nightshift app bound to its own Nemotron lane. Every plan, claim, Skeptic decision and verdict carries the Meterless receipt id and `routed_model` of the call that produced it, so the trace shows which model actually answered, and the UI renders them.

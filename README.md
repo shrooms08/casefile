@@ -4,7 +4,7 @@ Agents that explain why a Solana token dumped, and show the receipts.
 
 **[Hosted replay](https://casefile-ruddy-two.vercel.app/)** · **[Demo video](DEMO_VIDEO_URL)** · **[Slides](SLIDES_URL)**
 
-RugCheck's own `rugged` flag is `false` for ヤギ and kimchisol; Casefile files both as **RUGGED**, and every line of the verdict cites a snapshot field.
+RugCheck's own `rugged` flag is `false` for ヤギ and kimchisol; Casefile files both as **RUGGED**, and every line of the verdict points to evidence from the frozen data snapshot.
 The controls BONK and WIF come back **CAUTION**, not rug.
 
 ## Results
@@ -24,15 +24,15 @@ Source: `demo_cases/<case_id>/meta.json` and `verdict.json`. "Agent calls" count
 
 ```mermaid
 flowchart LR
-  Z[("Zetaris snapshot<br/>CASEFILE_SNAP")] --> P["Planner<br/>Nemotron Super"]
+  Z[("Zetaris snapshot<br/>CASEFILE_SNAP")] --> P["Planner<br/>deep lane: Super"]
   R[("H-MEM recall<br/>creator + top-20 holders")] --> P
-  P --> H["Holders<br/>Nemotron Lightning"]
-  P --> L["Liquidity<br/>Nemotron Lightning"]
-  P --> D["Deployer<br/>Nemotron Lightning"]
-  H --> S{"Skeptic<br/>Nemotron Super<br/>one rework round"}
+  P --> H["Holders<br/>fast lane: Lightning"]
+  P --> L["Liquidity<br/>fast lane: Lightning"]
+  P --> D["Deployer<br/>fast lane: Lightning"]
+  H --> S{"Skeptic<br/>deep lane: Super<br/>one rework round"}
   L --> S
   D --> S
-  S --> V["Verdict<br/>Nemotron Super"]
+  S --> V["Verdict<br/>deep lane: Super"]
   V --> W[("H-MEM store")]
 ```
 
@@ -54,16 +54,16 @@ Across the four demo runs: 30 claims filed, 40 Skeptic decisions, 10 first-round
 
 Details, receipts and tests: `docs/SPONSOR_TECH.md`.
 
-- **Zetaris (data layer).** Per token, `casefile/sources.py` creates Lightning REST tables over DexScreener and RugCheck at runtime and flattens them into SchemaStore views (pairs, summary, holders, risks, insiders, markets, known accounts, lockers). `casefile/snapshot.py` freezes each view with `RUN EXPORT TO STORAGE` into Parquet and registers it as a `CASEFILE_SNAP` filestore table. Agents read only those snapshots, through `query_case` (`casefile/agents/tools.py`: SELECT-only, snapshot tables only, all Zetaris calls behind one lock).
+- **Zetaris (data layer).** Per token, `casefile/sources.py` creates Lightning REST tables over DexScreener and RugCheck at runtime and flattens them into SchemaStore views (pairs, summary, holders, risks, insiders, markets, known accounts, lockers). `casefile/snapshot.py` freezes each view with `RUN EXPORT TO STORAGE` into Parquet and registers it as a `CASEFILE_SNAP` filestore table. Agents read only those snapshots: each investigator gets slices of the snapshot tables in its prompt, and can run extra read-only queries through `query_case` (`casefile/agents/tools.py`: SELECT-only, snapshot tables only, all Zetaris calls behind one lock; no demo run needed it).
 - **Meterless H-MEM (engine).** `casefile/hmem/` is the H-MEM reference implementation adapted with attribution, plus `casefile.ts` for Casefile's wallet memory. It stores one fact per wallet, case and role (creator, insider, top-20 holder) with token, established flag and verdict, and recalls them at the start of every case. A wallet that is a top holder in two different established tokens gets a derived "likely custodian or exchange" memory, created through H-MEM's dreaming approval step; WIF recalls BONK's shared holders this way. Conformance: 13/13. Live test: `CASEFILE_LIVE_TESTS=1 uv run pytest tests/test_hmem.py`.
-- **Meterless Nightshift (AI provider).** `casefile/llm.py` implements the Meterless Power Prompt contract (Runtime 1.4, provider contract v4). Two app ids, `casefile-fast` and `casefile-deep`, are bound in Nightshift to lanes pinned to the two Nemotron models. Calls stream (SSE) so long answers survive Nightshift's 45 s header deadline, and every call's Meterless receipt is saved to `runs/<case_id>/<run_id>/receipts.jsonl` and shown in the UI.
-- **NVIDIA Nemotron.** Nemotron 3.5 Lightning 30B A3B runs the three investigators; Nemotron 3.5 Super VL 120B A12B runs the planner, the Skeptic and the verdict. The receipts prove it (`routed_model` in every receipt in `demo_cases/*/receipts.jsonl`), and the case board shows the model tag and receipt id on every agent step.
+- **Meterless Nightshift (AI provider).** `casefile/llm.py` implements the Meterless Power Prompt contract (Runtime 1.4, provider contract v4). Two app ids, `casefile-fast` and `casefile-deep`, are bound in Nightshift to a Lightning lane and a Super lane. Calls stream (SSE) so long answers survive Nightshift's 45 s header deadline, and every call's Meterless receipt is saved to `runs/<case_id>/<run_id>/receipts.jsonl` and shown in the UI.
+- **NVIDIA Nemotron.** The three investigators are sent to the fast lane (`casefile-fast`, Nemotron 3.5 Lightning 30B A3B); the planner, the Skeptic and the verdict to the deep lane (`casefile-deep`, Nemotron 3.5 Super VL 120B A12B). Each receipt's `routed_model` records which model actually answered. In the WIF demo run the deployer investigator's claims D1 and D2 were answered by Super: Nightshift ran that call on Lightning, judged the answer divergent, and escalated it to Super (`consensus_escalation` in receipt `rcpt_req_oz1pxls2`). The case board shows the answering model and receipt id on every LLM step.
 
 What was unique:
 
-- **Evidence frozen inside the data platform.** Zetaris fetches, shapes and freezes the evidence (REST tables → views → Parquet snapshots via `RUN EXPORT TO STORAGE`). Every claim cites a snapshot `table · field · value` that code checks before the Skeptic sees it, and the frozen case replays anywhere with no stack.
+- **Evidence frozen inside the data platform.** Zetaris fetches, shapes and freezes the evidence (REST tables → views → Parquet snapshots via `RUN EXPORT TO STORAGE`). Every claim cites its evidence as `table · field · value` (a snapshot field, a field computed from the snapshot, or an H-MEM fact), and code checks it before the Skeptic sees it, and the frozen case replays anywhere with no stack.
 - **Memory as cross-case wallet reputation.** H-MEM is used to remember wallets across investigations. The derived "likely custodian or exchange" memory is created through H-MEM's dreaming approval boundary, and the Skeptic must respect it, so a known exchange wallet in WIF is not mistaken for an insider because it was already seen in BONK.
-- **The receipt is the reasoning trace.** Each role is a separate Nightshift app pinned to its own Nemotron lane. Every agent step, claim, Skeptic decision and verdict carries the Meterless receipt id and `routed_model` of the call that produced it, and the UI renders them.
+- **The receipt is the reasoning trace.** Each role is a separate Nightshift app bound to its own Nemotron lane. Every plan, claim, Skeptic decision and verdict carries the Meterless receipt id and `routed_model` of the call that produced it, so the trace shows which model actually answered, and the UI renders them.
 
 ## Honest limitations
 

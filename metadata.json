@@ -64,7 +64,7 @@
         "Lightning REST tables created at runtime per token (DEXSCREENER_REST, RUGCHECK_REST)",
         "SchemaStore views in container casefile (pairs, summary, holders, risks, insiders, markets, known_accounts, lockers)",
         "Parquet evidence snapshots via RUN EXPORT TO STORAGE, registered as LIGHTNING FILESTORE tables in CASEFILE_SNAP",
-        "agents read only the snapshots, through query_case (SELECT-only, snapshot tables only, serialized)"
+        "agents read only the snapshots: slices of the snapshot tables in each prompt, plus query_case for extra read-only SELECTs (snapshot tables only, serialized; unused in the demo runs)"
       ],
       "files": [
         "casefile/zetaris.py",
@@ -90,11 +90,11 @@
     "meterless_nightshift": {
       "role": "primary AI provider (Meterless Power Prompt contract: Runtime 1.4, provider contract v4)",
       "apps": {
-        "casefile-fast": "lane pinned to nvidia/nemotron-3.5-lightning-30b-a3b",
-        "casefile-deep": "lane pinned to nvidia/nemotron-3.5-super-vl-120b-a12b"
+        "casefile-fast": "bound to the Lightning lane (nvidia/nemotron-3.5-lightning-30b-a3b)",
+        "casefile-deep": "bound to the Super lane (nvidia/nemotron-3.5-super-vl-120b-a12b)"
       },
       "transport": "OpenAI-compatible /v1/chat/completions, streamed (SSE) with meterless-trace: on",
-      "receipts": "every call saved to runs/<case_id>/<run_id>/receipts.jsonl; receipt id + routed model shown on every agent step in the UI",
+      "receipts": "every call saved to runs/<case_id>/<run_id>/receipts.jsonl; receipt id + routed model (the model that answered) shown on every LLM step in the UI",
       "files": [
         "casefile/llm.py",
         "scripts/check_nightshift.py",
