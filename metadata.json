@@ -109,7 +109,8 @@
           "holders investigator",
           "liquidity investigator",
           "deployer investigator"
-        ]
+        ],
+        "lane": "casefile-fast"
       },
       {
         "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
@@ -118,7 +119,9 @@
           "planner",
           "skeptic",
           "verdict"
-        ]
+        ],
+        "lane": "casefile-deep",
+        "note": "routed_model records the model that answered; in the WIF demo run Nightshift consensus escalation answered one casefile-fast deployer call (claims D1, D2) with Super (receipt rcpt_req_oz1pxls2)"
       }
     ],
     "details": "docs/SPONSOR_TECH.md"
